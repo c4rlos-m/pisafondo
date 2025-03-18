@@ -1,0 +1,7 @@
+# Ignorar node_modules
+node_modules/
+
+# Otros archivos que quieras ignorar (opcional)
+.env
+.DS_Store
+*.log
