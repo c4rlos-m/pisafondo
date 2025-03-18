@@ -88,50 +88,6 @@ const loginUser = async (req, res) => {
     res.json({ token });
 };
 
-const getAdminDashboard = async (req, res) => {
-  // Verificar que el usuario sea administrador
-  if (req.user.role !== 'administrador') {
-    return res.status(403).json({ error: 'Acceso denegado. Solo para administradores.' });
-  }
 
-  try {
-    // Obtener estadísticas
-    const { data: totalUsers, error: totalUsersError } = await supabase
-      .from('users')
-      .select('id', { count: 'exact' });
-    
-    const { data: totalMedicos, error: medicosError } = await supabase
-      .from('users')
-      .select('id', { count: 'exact' })
-      .eq('role', 'medico');
-    
-    const { data: totalPacientes, error: pacientesError } = await supabase
-      .from('users')
-      .select('id', { count: 'exact' })
-      .eq('role', 'paciente');
-    
-    const { data: recentUsers, error: recentUsersError } = await supabase
-      .from('users')
-      .select('id, email, role')
-      .order('id', { ascending: false })
-      .limit(5);
 
-    if (totalUsersError || medicosError || pacientesError || recentUsersError) {
-      console.error('Error al obtener datos del dashboard:', { totalUsersError, medicosError, pacientesError, recentUsersError });
-      return res.status(500).json({ error: 'Error al obtener datos del dashboard' });
-    }
-
-    res.json({
-      totalUsers: totalUsers.length,
-      totalMedicos: totalMedicos.length,
-      totalPacientes: totalPacientes.length,
-      pendingAppointments: 25, // Simulado por ahora, ajusta si tienes una tabla de citas
-      recentUsers
-    });
-  } catch (error) {
-    console.error('Error en getAdminDashboard:', error);
-    res.status(500).json({ error: 'Error interno del servidor' });
-  }
-};
-
-module.exports = { getUsers, createUser, loginUser, getAdminDashboard };
+module.exports = { getUsers, createUser, loginUser };
