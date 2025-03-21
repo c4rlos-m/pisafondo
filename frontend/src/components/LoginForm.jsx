@@ -18,7 +18,7 @@ const LoginForm = () => {
 
     if (res.ok) {
       localStorage.setItem("token", data.token);
-      window.location.href = "/dashboard";  // Redirige después del login exitoso
+      window.location.href = "/app";  // Redirige después del login exitoso
     } else {
       // Si hay un error, actualiza el estado con el mensaje de error
       setErrorMessage(data.error || "Error desconocido");
