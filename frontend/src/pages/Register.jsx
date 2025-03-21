@@ -1,11 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import RegisterForm from '../components/RegisterForm';
+import LoginForm from '../components/LoginForm';
+import AuthHeader from '../components/AuthHeader';
 
-function Register() {
+function Login() {
   return (
-    <RegisterForm />
+    <div className="min-h-screen bg-gray-900 flex flex-col">
+      <AuthHeader />
+      <main className="flex-1 flex items-center justify-center pt-16">
+        <LoginForm />
+      </main>
+    </div>
   );
 }
 
-export default Register;
+export default Login;

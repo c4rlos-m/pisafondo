@@ -13,7 +13,7 @@ const CallToAction = () => {
         </p>
         <Link
           to="/register"
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-10 rounded-lg transition-all duration-300 animate-pulse subtle"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-10 rounded-lg transition-all duration-300 animate-pulse subtle" viewTransition
         >
           Únete ahora
         </Link>
