@@ -1,12 +1,10 @@
 import React from 'react';
 import LoginForm from '../components/LoginForm';
-import AuthHeader from '../components/AuthHeader';
 
-function Login() {
-  return(
-    <><AuthHeader /><LoginForm /></>
-
-  )
+function Login({ setIsAuthenticated }) {
+  return (
+    <LoginForm setIsAuthenticated={setIsAuthenticated} />
+  );
 }
 
 export default Login;

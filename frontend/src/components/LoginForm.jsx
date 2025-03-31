@@ -1,32 +1,39 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const LoginForm = () => {
+const LoginForm = ({ setIsAuthenticated }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState(""); // Agregado para coherencia
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:5000/users/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const res = await fetch("http://localhost:5000/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (res.ok) {
-      localStorage.setItem("token", data.token);
-      setSuccessMessage("¡Encendido exitoso! Redirigiendo al tablero...");
-      setErrorMessage("");
-      setTimeout(() => {
-        window.location.href = "/app"; // Redirige después de un breve mensaje
-      }, 1500);
-    } else {
-      setErrorMessage(data.error || "Error en el arranque. Revisa tus credenciales.");
+      if (res.ok) {
+        localStorage.setItem("token", data.token); // Guarda el token
+        setIsAuthenticated(true); // Actualiza el estado de autenticación
+        setSuccessMessage("¡Encendido exitoso! Redirigiendo al tablero...");
+        setErrorMessage(""); // Limpia cualquier mensaje de error previo
+        navigate("/app"); // Redirige a /app después de 1.5 segundos
+        
+      } else {
+        setErrorMessage(data.error || "Error en el arranque. Revisa tus credenciales.");
+        setSuccessMessage("");
+      }
+    } catch (error) {
+      console.error("Error en la solicitud:", error); // Muestra el error en la consola para depuración
+      setErrorMessage("Error de conexión. Intenta de nuevo.");
       setSuccessMessage("");
     }
   };
@@ -34,7 +41,6 @@ const LoginForm = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
       <div className="w-full max-w-md p-8 bg-gray-800 rounded-xl shadow-2xl shadow-indigo-900/20 border border-gray-700">
-        {/* Encabezado con toque automovilístico */}
         <h1 className="text-3xl font-bold text-white text-center mb-6">
           Enciende tu motor
         </h1>
@@ -43,7 +49,6 @@ const LoginForm = () => {
         </p>
 
         <form onSubmit={handleLogin} className="space-y-6">
-          {/* Campo de correo */}
           <div>
             <label className="block text-gray-300 text-sm font-medium mb-2">
               Correo electrónico
@@ -58,7 +63,6 @@ const LoginForm = () => {
             />
           </div>
 
-          {/* Campo de contraseña */}
           <div>
             <label className="block text-gray-300 text-sm font-medium mb-2">
               Llave de encendido (Contraseña)
@@ -73,7 +77,6 @@ const LoginForm = () => {
             />
           </div>
 
-          {/* Botón de envío */}
           <div>
             <button
               type="submit"
@@ -83,7 +86,6 @@ const LoginForm = () => {
             </button>
           </div>
 
-          {/* Enlace a registro */}
           <div className="text-center">
             <p className="text-gray-400 text-sm">
               ¿No tienes cuenta?{" "}
@@ -96,7 +98,6 @@ const LoginForm = () => {
             </p>
           </div>
 
-          {/* Mensajes de error y éxito */}
           {errorMessage && (
             <p className="text-red-400 text-sm text-center mt-4 bg-red-900/20 p-2 rounded-lg">
               {errorMessage}
