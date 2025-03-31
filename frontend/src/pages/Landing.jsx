@@ -1,22 +1,30 @@
+// src/pages/LandingPage.js
 import React from 'react';
 import Header from '../components/Header';
-import Hero from '../components/Hero';
-import FeaturedCars from '../components/FeaturedCars';
-import CallToAction from '../components/CallToAction';
-import Footer from '../components/Footer';
+import Hero from '../components/landing/Hero';
+import CallToAction from '../components/landing/CallToAction';
+import FeaturedCarsScroll from '../components/landing/FeaturedCarsScroll';
+import Features from '../components/landing/Features';
+import BentoGrid from '../components/landing/BentoGrid';
+import Testimonials from '../components/landing/Testimonials';
+import ContactForm from '../components/landing/ContactForm';
+import Footer from '../components/landing/Footer';
 
-function Landing() {
+const LandingPage = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-dark-blue-gray text-light-gray">
+    <div className="font-sans">
       <Header />
-      <main className="flex-grow">
-        <Hero />
-        <FeaturedCars />
-        <CallToAction />
-      </main>
+      <Hero />
+      <Features />
+      <FeaturedCarsScroll />
+      <CallToAction title="Tu Coche Ideal" subtitle="Explora nuestra colección ahora." />
+      <BentoGrid />
+      <Testimonials />
+      <CallToAction title="Contáctanos" subtitle="Estamos aquí para ayudarte." ctaText="Enviar Mensaje" href="#contact" />
+      <ContactForm />
       <Footer />
     </div>
   );
-}
+};
 
-export default Landing;
+export default LandingPage;
