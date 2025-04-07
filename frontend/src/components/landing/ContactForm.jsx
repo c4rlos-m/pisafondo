@@ -22,7 +22,7 @@ const ContactForm = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Nombre"
-            className="w-full p-4 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-apple-accent transition duration-300"
+            className="w-full p-4 border border-white-300 rounded-lg text-white-800 focus:outline-none focus:ring-2 focus:ring-apple-accent transition duration-300"
             required
           />
           <input
@@ -30,19 +30,19 @@ const ContactForm = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Correo electrónico"
-            className="w-full p-4 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-apple-accent transition duration-300"
+            className="w-full p-4 border border-white-300 rounded-lg text-white-800 focus:outline-none focus:ring-2 focus:ring-apple-accent transition duration-300"
             required
           />
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Tu mensaje"
-            className="w-full p-4 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-apple-accent transition duration-300 h-32"
+            className="w-full p-4 border border-white-300 rounded-lg text-white-800 focus:outline-none focus:ring-2 focus:ring-apple-accent transition duration-300 h-32"
             required
           />
           <button
             type="submit"
-            className="w-full bg-apple-accent text-white py-4 rounded-lg font-medium hover:bg-blue-700 transition duration-300"
+            className="w-full bg-blue-700 text-white py-4 rounded-lg font-medium hover:bg-blue-700 transition duration-300 cursor-pointer"
           >
             Enviar
           </button>
