@@ -3,6 +3,10 @@ import React from 'react';
 
 const Footer = () => {
   return (
+    <>
+    <hr className="border-t border-gray-700 my-12 mx-6" />
+
+
     <footer id="contact" className="bg-apple-dark text-gray-400 py-12 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
@@ -27,6 +31,7 @@ const Footer = () => {
         <p>© 2025 Premium Cars. Todos los derechos reservados.</p>
       </div>
     </footer>
+    </>
   );
 };
 

@@ -9,11 +9,11 @@ const Testimonials = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-white p-8 rounded-xl shadow-md">
             <p className="text-gray-600 mb-4">"Una experiencia simple y elegante. Encontré mi coche ideal en minutos."</p>
-            <h4 className="text-lg font-semibold text-apple-dark">— Ana M.</h4>
+            <h4 className="text-lg font-semibold text-gray-600">— Ana M.</h4>
           </div>
           <div className="bg-white p-8 rounded-xl shadow-md">
             <p className="text-gray-600 mb-4">"El diseño y la calidad del servicio son incomparables."</p>
-            <h4 className="text-lg font-semibold text-apple-dark">— Luis P.</h4>
+            <h4 className="text-lg font-semibold text-gray-600">— Luis P.</h4>
           </div>
         </div>
       </div>
