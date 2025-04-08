@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { X, Upload, Check, AlertCircle, Camera } from "lucide-react";
-import { useNavigate } from "react-router-dom"; // Importa useNavigate
+import { useNavigate } from "react-router-dom";
 
 const SellCarForm = () => {
   const [formData, setFormData] = useState({
@@ -11,7 +11,7 @@ const SellCarForm = () => {
     kilometros: "",
     combustible: "",
     descripcion: "",
-    ubicacion: "", // Asegúrate de que esté aquí
+    ubicacion: "",
   });
   const [images, setImages] = useState([]);
   const [previews, setPreviews] = useState([]);
@@ -19,14 +19,13 @@ const SellCarForm = () => {
   const [loading, setLoading] = useState(false);
   const [activeStep, setActiveStep] = useState(1);
   const fileInputRef = useRef(null);
-  const navigate = useNavigate(); // Hook para redirigir
-
+  const navigate = useNavigate();
 
   const combustibleOptions = ["Gasolina", "Diésel", "Híbrido", "Eléctrico", "GLP", "Otro"];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === "precio" || name === "kilometros" || name === "year") { // Cambia "año" por "year"
+    if (name === "precio" || name === "kilometros" || name === "year") {
       if (value === "" || /^\d+$/.test(value)) {
         setFormData({ ...formData, [name]: value });
       }
@@ -56,54 +55,53 @@ const SellCarForm = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  console.log("Datos del formulario enviados:", formData); // Verifica que ubicacion esté aquí
+    e.preventDefault();
+    setLoading(true);
+    console.log("Datos del formulario enviados:", formData);
 
-  try {
-    const data = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      data.append(key, value);
-    });
-    images.forEach((image) => data.append("images", image));
+    try {
+      const data = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        data.append(key, value);
+      });
+      images.forEach((image) => data.append("images", image));
 
-    const token = localStorage.getItem("token");
-    const response = await fetch("http://localhost:5000/cars/createCar", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: data,
-    });
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://localhost:5000/cars/createCar", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: data,
+      });
 
-    const responseData = await response.json();
-    if (!response.ok) {
-      throw new Error(responseData.error || "Error en la solicitud");
-    }
+      const responseData = await response.json();
+      if (!response.ok) {
+        throw new Error(responseData.error || "Error en la solicitud");
+      }
 
-    console.log("Coche subido:", responseData);
-    setMessage({
-      text: "¡Felicidades! Tu vehículo ha sido publicado correctamente. Redirigiendo...",
-      type: "success",
-      
-    });
-    setFormData({
-      marca: "",
-      modelo: "",
-      precio: "",
-      year: "",
-      kilometros: "",
-      combustible: "",
-      descripcion: "",
-      ubicacion: "", 
-    });
+      console.log("Coche subido:", responseData);
+      setMessage({
+        text: "¡Felicidades! Tu vehículo ha sido publicado correctamente. Redirigiendo...",
+        type: "success",
+      });
+      setFormData({
+        marca: "",
+        modelo: "",
+        precio: "",
+        year: "",
+        kilometros: "",
+        combustible: "",
+        descripcion: "",
+        ubicacion: "",
+      });
       previews.forEach((preview) => URL.revokeObjectURL(preview.url));
       setImages([]);
       setPreviews([]);
       setActiveStep(1);
       setTimeout(() => {
         navigate("/app");
-      }, 2000); 
+      }, 2000);
     } catch (error) {
       console.error("Error al subir el coche:", error);
       setMessage({
@@ -128,7 +126,7 @@ const SellCarForm = () => {
       );
     }
     if (step === 2) {
-      return formData.ubicacion.trim() !== ""; // Validar ubicación
+      return formData.ubicacion.trim() !== "";
     }
     return true;
   };
@@ -146,27 +144,31 @@ const SellCarForm = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-gray-800 rounded-2xl shadow-xl shadow-indigo-900/20 border border-gray-700 p-8">
-      <h2 className="text-2xl font-bold text-white text-center mb-6">
+    <div className="max-w-3xl mx-auto bg-white rounded-2xl  mt-8 mb-8 ">
+      <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
         Vende tu vehículo
       </h2>
-
+      <p className="text-gray-400 text-center mb-6">
+                Completa el formulario para poner tu vehículo en el mercado
+              </p>
+      {/* Mensaje */}
       {message.text && (
         <div
-          className={`mb-6 p-4 rounded-lg flex items-center ${message.type === "success"
-            ? "bg-green-900/20 text-green-400 border border-green-900/50"
-            : "bg-red-900/20 text-red-400 border border-red-900/50"
-            }`}
+          className={`mb-6 p-4 rounded-lg flex items-center ${
+            message.type === "success"
+              ? "bg-green-100 text-green-700 border border-green-300"
+              : "bg-red-100 text-red-700 border border-red-300"
+          }`}
         >
           {message.type === "success" ? (
-            <Check className="w-5 h-5 mr-2 flex-shrink-0" />
+            <Check className="w-5 h-5 mr-2" />
           ) : (
-            <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0" />
+            <AlertCircle className="w-5 h-5 mr-2" />
           )}
           <p>{message.text}</p>
           <button
             onClick={() => setMessage({ text: "", type: "" })}
-            className="ml-auto text-gray-400 hover:text-gray-300"
+            className="ml-auto text-gray-500 hover:text-gray-700"
             aria-label="Cerrar mensaje"
           >
             <X className="w-4 h-4" />
@@ -175,47 +177,50 @@ const SellCarForm = () => {
       )}
 
       {/* Indicador de pasos */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="w-full flex items-center">
+      <div className="flex items-center justify-center mb-8">
+        <div className="flex items-center space-x-4 w-full max-w-md">
           <div
-            className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${activeStep >= 1 ? "bg-indigo-600 text-white" : "bg-gray-600 text-gray-300"
-              }`}
+            className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold ${
+              activeStep >= 1 ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-500"
+            }`}
           >
             1
           </div>
           <div
-            className={`flex-1 h-1 ${activeStep >= 2 ? "bg-indigo-600" : "bg-gray-600"}`}
+            className={`flex-1 h-1 ${activeStep >= 2 ? "bg-blue-600" : "bg-gray-200"}`}
           ></div>
           <div
-            className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${activeStep >= 2 ? "bg-indigo-600 text-white" : "bg-gray-600 text-gray-300"
-              }`}
+            className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold ${
+              activeStep >= 2 ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-500"
+            }`}
           >
             2
           </div>
           <div
-            className={`flex-1 h-1 ${activeStep >= 3 ? "bg-indigo-600" : "bg-gray-600"}`}
+            className={`flex-1 h-1 ${activeStep >= 3 ? "bg-blue-600" : "bg-gray-200"}`}
           ></div>
           <div
-            className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${activeStep >= 3 ? "bg-indigo-600 text-white" : "bg-gray-600 text-gray-300"
-              }`}
+            className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold ${
+              activeStep >= 3 ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-500"
+            }`}
           >
             3
           </div>
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-8">
         {/* Paso 1: Información básica */}
         {activeStep === 1 && (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white mb-4">
+          <div className="space-y-6">
+            <h3 className="text-xl font-semibold text-gray-800">
               Información básica del vehículo
             </h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="marca" className="block text-sm font-medium text-gray-300 mb-1">
-                  Marca <span className="text-red-400">*</span>
+                <label htmlFor="marca" className="block text-sm font-medium text-gray-700 mb-2">
+                  Marca <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -224,14 +229,14 @@ const SellCarForm = () => {
                   value={formData.marca}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-2.5 border border-gray-600 rounded-lg bg-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 hover:border-indigo-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 hover:border-blue-400"
                   placeholder="Ej: Toyota, Volkswagen..."
                 />
               </div>
 
               <div>
-                <label htmlFor="modelo" className="block text-sm font-medium text-gray-300 mb-1">
-                  Modelo <span className="text-red-400">*</span>
+                <label htmlFor="modelo" className="block text-sm font-medium text-gray-700 mb-2">
+                  Modelo <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -240,16 +245,16 @@ const SellCarForm = () => {
                   value={formData.modelo}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-2.5 border border-gray-600 rounded-lg bg-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 hover:border-indigo-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 hover:border-blue-400"
                   placeholder="Ej: Corolla, Golf..."
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <label htmlFor="precio" className="block text-sm font-medium text-gray-300 mb-1">
-                  Precio (€) <span className="text-red-400">*</span>
+                <label htmlFor="precio" className="block text-sm font-medium text-gray-700 mb-2">
+                  Precio (€) <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -258,30 +263,30 @@ const SellCarForm = () => {
                   value={formData.precio}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-2.5 border border-gray-600 rounded-lg bg-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 hover:border-indigo-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 hover:border-blue-400"
                   placeholder="Ej: 15000"
                 />
               </div>
 
               <div>
-                <label htmlFor="year" className="block text-sm font-medium text-gray-300 mb-1">
-                  Año <span className="text-red-400">*</span> {/* Puedes dejar el label como "Año" para el usuario */}
+                <label htmlFor="year" className="block text-sm font-medium text-gray-700 mb-2">
+                  Año <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
-                  id="year" // Cambia "año" por "year"
-                  name="year" // Cambia "año" por "year"
-                  value={formData.year} // Cambia "formData.año" por "formData.year"
+                  id="year"
+                  name="year"
+                  value={formData.year}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-2.5 border border-gray-600 rounded-lg bg-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 hover:border-indigo-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 hover:border-blue-400"
                   placeholder="Ej: 2018"
                 />
               </div>
 
               <div>
-                <label htmlFor="kilometros" className="block text-sm font-medium text-gray-300 mb-1">
-                  Kilómetros <span className="text-red-400">*</span>
+                <label htmlFor="kilometros" className="block text-sm font-medium text-gray-700 mb-2">
+                  Kilómetros <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -290,15 +295,15 @@ const SellCarForm = () => {
                   value={formData.kilometros}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-2.5 border border-gray-600 rounded-lg bg-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 hover:border-indigo-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 hover:border-blue-400"
                   placeholder="Ej: 50000"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="combustible" className="block text-sm font-medium text-gray-300 mb-1">
-                Tipo de combustible <span className="text-red-400">*</span>
+              <label htmlFor="combustible" className="block text-sm font-medium text-gray-700 mb-2">
+                Tipo de combustible <span className="text-red-500">*</span>
               </label>
               <select
                 id="combustible"
@@ -306,11 +311,11 @@ const SellCarForm = () => {
                 value={formData.combustible}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-2.5 border border-gray-600 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 hover:border-indigo-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 hover:border-blue-400 appearance-none"
               >
-                <option value="" className="text-gray-500">Seleccionar tipo</option>
+                <option value="" className="text-gray-400">Seleccionar tipo</option>
                 {combustibleOptions.map((option) => (
-                  <option key={option} value={option} className="text-white bg-gray-700">
+                  <option key={option} value={option} className="text-gray-900">
                     {option}
                   </option>
                 ))}
@@ -322,10 +327,11 @@ const SellCarForm = () => {
                 type="button"
                 onClick={nextStep}
                 disabled={!validateStep(1)}
-                className={`px-6 py-3 bg-indigo-600 text-white rounded-lg transition-all duration-300 ${validateStep(1)
-                  ? "hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-500/50"
-                  : "opacity-50 cursor-not-allowed"
-                  }`}
+                className={`px-6 py-3 bg-blue-600 text-white rounded-lg font-medium transition-all duration-200 ${
+                  validateStep(1)
+                    ? "hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+                    : "opacity-50 cursor-not-allowed"
+                }`}
               >
                 Siguiente
               </button>
@@ -333,15 +339,15 @@ const SellCarForm = () => {
           </div>
         )}
 
-        {/* Paso 2: Descripción */}
+        {/* Paso 2: Descripción y ubicación */}
         {activeStep === 2 && (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white mb-4">
+          <div className="space-y-6">
+            <h3 className="text-xl font-semibold text-gray-800">
               Descripción y ubicación del vehículo
             </h3>
 
             <div>
-              <label htmlFor="descripcion" className="block text-sm font-medium text-gray-300 mb-1">
+              <label htmlFor="descripcion" className="block text-sm font-medium text-gray-700 mb-2">
                 Descripción detallada
               </label>
               <textarea
@@ -350,14 +356,14 @@ const SellCarForm = () => {
                 value={formData.descripcion}
                 onChange={handleInputChange}
                 rows="6"
-                className="w-full px-4 py-2.5 border border-gray-600 rounded-lg bg-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 hover:border-indigo-500 resize-none"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 hover:border-blue-400 resize-none"
                 placeholder="Describe las características de tu vehículo, su estado, equipamiento, extras..."
               ></textarea>
             </div>
 
             <div>
-              <label htmlFor="ubicacion" className="block text-sm font-medium text-gray-300 mb-1">
-                Ubicación <span className="text-red-400">*</span>
+              <label htmlFor="ubicacion" className="block text-sm font-medium text-gray-700 mb-2">
+                Ubicación <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -366,7 +372,7 @@ const SellCarForm = () => {
                 value={formData.ubicacion}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-2.5 border border-gray-600 rounded-lg bg-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 hover:border-indigo-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 hover:border-blue-400"
                 placeholder="Ej: Madrid"
               />
             </div>
@@ -375,14 +381,19 @@ const SellCarForm = () => {
               <button
                 type="button"
                 onClick={prevStep}
-                className="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-all duration-300 focus:ring-4 focus:ring-gray-500/50"
+                className="px-6 py-3 bg-gray-500 text-white rounded-lg font-medium hover:bg-gray-600 transition-all duration-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"
               >
                 Anterior
               </button>
               <button
                 type="button"
                 onClick={nextStep}
-                className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all duration-300 focus:ring-4 focus:ring-indigo-500/50"
+                disabled={!validateStep(2)}
+                className={`px-6 py-3 bg-blue-600 text-white rounded-lg font-medium transition-all duration-200 ${
+                  validateStep(2)
+                    ? "hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+                    : "opacity-50 cursor-not-allowed"
+                }`}
               >
                 Siguiente
               </button>
@@ -392,14 +403,14 @@ const SellCarForm = () => {
 
         {/* Paso 3: Imágenes */}
         {activeStep === 3 && (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white mb-4">
+          <div className="space-y-6">
+            <h3 className="text-xl font-semibold text-gray-800">
               Fotos del vehículo
             </h3>
 
             <div
               onClick={() => fileInputRef.current.click()}
-              className="border-2 border-dashed border-gray-600 rounded-lg p-8 text-center cursor-pointer hover:border-indigo-500 transition-all duration-300"
+              className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-all duration-200"
             >
               <input
                 type="file"
@@ -408,15 +419,15 @@ const SellCarForm = () => {
                 multiple
                 accept="image/*"
                 className="hidden"
-                required={previews.length === 0} // Obligatorio si no hay imágenes
+                required={previews.length === 0}
               />
               <div className="flex flex-col items-center">
-                <Camera className="w-12 h-12 text-gray-400 mb-2" />
-                <p className="text-white font-medium mb-1">Sube fotos de tu vehículo</p>
-                <p className="text-sm text-gray-400 mb-2">
-                  Arrastra o haz clic para seleccionar
+                <Camera className="w-12 h-12 text-gray-400 mb-3" />
+                <p className="text-gray-700 font-medium mb-1">Sube fotos de tu vehículo</p>
+                <p className="text-sm text-gray-500 mb-3">
+                  Arrastra o haz clic para seleccionar (mínimo 1 imagen)
                 </p>
-                <span className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-all duration-300">
+                <span className="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-all duration-200">
                   <Upload className="w-4 h-4 mr-2" />
                   Seleccionar imágenes
                 </span>
@@ -425,13 +436,13 @@ const SellCarForm = () => {
 
             {previews.length > 0 && (
               <div className="mt-6">
-                <h4 className="text-sm font-medium text-gray-300 mb-3">
+                <h4 className="text-sm font-medium text-gray-700 mb-3">
                   Imágenes seleccionadas ({previews.length})
                 </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                   {previews.map((preview, index) => (
                     <div key={index} className="relative group">
-                      <div className="aspect-w-4 aspect-h-3 rounded-lg overflow-hidden border border-gray-600">
+                      <div className="aspect-w-4 aspect-h-3 rounded-lg overflow-hidden border border-gray-200 shadow-sm">
                         <img
                           src={preview.url}
                           alt={preview.name}
@@ -441,7 +452,7 @@ const SellCarForm = () => {
                       <button
                         type="button"
                         onClick={() => removeImage(index)}
-                        className="absolute -top-2 -right-2 w-6 h-6 bg-red-600 text-white rounded-full flex items-center justify-center shadow-md hover:bg-red-700 transition-all duration-300"
+                        className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center shadow-md hover:bg-red-600 transition-all duration-200"
                         aria-label="Eliminar imagen"
                       >
                         <X className="w-4 h-4" />
@@ -456,17 +467,18 @@ const SellCarForm = () => {
               <button
                 type="button"
                 onClick={prevStep}
-                className="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-all duration-300 focus:ring-4 focus:ring-gray-500/50"
+                className="px-6 py-3 bg-gray-500 text-white rounded-lg font-medium hover:bg-gray-600 transition-all duration-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"
               >
                 Anterior
               </button>
               <button
                 type="submit"
-                disabled={loading || images.length === 0} // Deshabilitar si no hay imágenes
-                className={`px-6 py-3 bg-green-600 text-white rounded-lg transition-all duration-300 flex items-center ${loading || images.length === 0
-                  ? "opacity-70 cursor-not-allowed"
-                  : "hover:bg-green-700 focus:ring-4 focus:ring-green-500/50"
-                  }`}
+                disabled={loading || images.length === 0}
+                className={`px-6 py-3 bg-green-600 text-white rounded-lg font-medium transition-all duration-200 flex items-center ${
+                  loading || images.length === 0
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:bg-green-700 focus:ring-2 focus:ring-green-400 focus:ring-opacity-50"
+                }`}
               >
                 {loading ? (
                   <>
