@@ -1,17 +1,16 @@
-// components/Header.jsx
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
-const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic }) => {
+const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole }) => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Elimina el token
-    setIsAuthenticated(false); // Actualiza el estado
-    navigate("/"); // Redirige a la página pública de inicio
-    setIsMenuOpen(false); // Cierra el menú móvil
+    localStorage.removeItem("token");
+    setIsAuthenticated(false);
+    navigate("/");
+    setIsMenuOpen(false);
   };
 
   const handleProfileClick = () => {
@@ -24,61 +23,44 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic }) => {
   };
 
   return (
-    <header className="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-4 px-6 sticky top-0 z-20 shadow-lg">
+    <header className="bg-gray-100 text-black py-4 px-6 sticky top-0 z-20 shadow-md">
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo a la izquierda */}
         <div className="flex items-center">
-          <Link to={isAuthenticated ? "/app" : "/"} className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-3">
             <img
-              src="/path-to-your-logo.png" // Reemplaza con la ruta real de tu logo
+              src="/LogoTrans.png"
               alt="Logo"
-              className="h-12 w-auto object-contain transition-transform duration-300 hover:scale-105"
+              className="h-10 w-auto object-contain transition-transform duration-300 hover:scale-105"
             />
-            <span className="text-xl font-semibold tracking-tight hidden md:block">
-              PISAFONDO
-            </span>
+            <span className="text-2xl font-bold tracking-tight">PISAFONDO</span>
           </Link>
         </div>
 
         {/* Menú en el centro (escritorio) */}
-        <nav className="hidden md:flex flex-1 justify-center space-x-10">
-          <Link
-            to={isAuthenticated ? "/app" : "/"}
-            className="text-gray-200 hover:text-white font-medium text-sm uppercase tracking-wider transition-colors duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
-          >
-            Inicio
-          </Link>
-          {isAuthenticated && (
-            <>
-              <Link
-                to="/app/cars"
-                className="text-gray-200 hover:text-white font-medium text-sm uppercase tracking-wider transition-colors duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
-              >
-                Coches
-              </Link>
-              <Link
-                to="/app/sell"
-                className="text-gray-200 hover:text-white font-medium text-sm uppercase tracking-wider transition-colors duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
-              >
-                Vender
-              </Link>
-              <Link
-                to="/app/about"
-                className="text-gray-200 hover:text-white font-medium text-sm uppercase tracking-wider transition-colors duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
-              >
-                Sobre nosotros
-              </Link>
-              <Link
-                to="/app/contact"
-                className="text-gray-200 hover:text-white font-medium text-sm uppercase tracking-wider transition-colors duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
-              >
-                Contacto
-              </Link>
-            </>
-          )}
+        <nav className="hidden md:flex flex-1 justify-center space-x-8">
+          {[
+            { to: "/", label: "Inicio" },
+            { to: "/app", label: "Coches" },
+            { to: "/app/sell", label: "Vender" },
+            { to: "/app/about", label: "Sobre nosotros" },
+            { to: "/app/contact", label: "Contacto" },
+            ...(isAuthenticated && userRole === 'admin' // Agrega Gestión de Contactos solo para admins
+              ? [{ to: "/app/admin", label: "Gestión de Contactos" }]
+              : []),
+          ].map((item) => (
+            <Link
+              key={item.label}
+              to={item.to}
+              className="text-gray-700 hover:text-blue-500 font-medium text-sm uppercase tracking-wide transition-colors duration-300 relative group"
+            >
+              {item.label}
+              <span className="absolute bottom-[-6px] left-0 w-0 h-[2px] bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+          ))}
         </nav>
 
-        {/* Imagen de usuario/logout o Login (escritorio) */}
+        {/* Botones de acción o perfil (escritorio) */}
         <div className="hidden md:flex items-center space-x-4">
           {isAuthenticated ? (
             <>
@@ -88,25 +70,33 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic }) => {
                 aria-label="Ir al perfil"
               >
                 <img
-                  src={userProfilePic || "/default-profile-pic.png"}
+                  src={userProfilePic || "src/assets/images/mustang.png"}
                   alt="Perfil"
-                  className="h-10 w-10 rounded-full object-cover border-2 border-gray-600 group-hover:border-white transition-all duration-300 shadow-md"
+                  className="h-9 w-9 rounded-full object-cover border-2 border-gray-700 group-hover:border-white transition-all duration-300"
                 />
               </button>
               <button
                 onClick={handleLogout}
-                className="text-gray-300 hover:text-red-400 text-sm font-medium transition-colors duration-300"
+                className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300"
               >
                 Cerrar sesión
               </button>
             </>
           ) : (
-            <Link
-              to="/login"
-              className="text-gray-200 hover:text-white font-medium text-sm uppercase tracking-wider transition-colors duration-300"
-            >
-              Login
-            </Link>
+            <div className="flex space-x-3">
+              <Link
+                to="/login"
+                className="bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300"
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300"
+              >
+                Registrar
+              </Link>
+            </div>
           )}
         </div>
 
@@ -116,81 +106,70 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic }) => {
           className="md:hidden text-gray-300 hover:text-white focus:outline-none"
           aria-label="Toggle menu"
         >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
       {/* Menú móvil (desplegable) */}
       {isMenuOpen && (
-        <div className="md:hidden bg-gray-800 py-4 px-6 absolute top-full left-0 w-full shadow-lg">
+        <div className="md:hidden bg-gray-900 py-4 px-6 absolute top-full left-0 w-full shadow-lg">
           <nav className="flex flex-col space-y-4">
-            <Link
-              to={isAuthenticated ? "/app" : "/"}
-              onClick={() => setIsMenuOpen(false)}
-              className="text-gray-200 hover:text-white font-medium text-sm uppercase tracking-wider transition-colors duration-300"
-            >
-              Inicio
-            </Link>
-            {isAuthenticated && (
-              <>
-                <Link
-                  to="/app/cars"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-gray-200 hover:text-white font-medium text-sm uppercase tracking-wider transition-colors duration-300"
-                >
-                  Coches
-                </Link>
-                <Link
-                  to="/app/sell"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-gray-200 hover:text-white font-medium text-sm uppercase tracking-wider transition-colors duration-300"
-                >
-                  Vender
-                </Link>
-                <Link
-                  to="/app/about"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-gray-200 hover:text-white font-medium text-sm uppercase tracking-wider transition-colors duration-300"
-                >
-                  Sobre nosotros
-                </Link>
-                <Link
-                  to="/app/contact"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-gray-200 hover:text-white font-medium text-sm uppercase tracking-wider transition-colors duration-300"
-                >
-                  Contacto
-                </Link>
-              </>
-            )}
+            {[
+              { to: "/", label: "Inicio" },
+              { to: "/app", label: "Coches" },
+              { to: "/app/sell", label: "Vender" },
+              { to: "/app/about", label: "Sobre nosotros" },
+              { to: "/app/contact", label: "Contacto" },
+              ...(isAuthenticated && userRole === 'admin' // Agrega Gestión de Contactos solo para admins
+                ? [{ to: "/app/admin", label: "Gestión de Contactos" }]
+                : []),
+            ].map((item) => (
+              <Link
+                key={item.label}
+                to={item.to}
+                onClick={() => setIsMenuOpen(false)}
+                className="text-gray-300 hover:text-white font-medium text-sm uppercase tracking-wide transition-colors duration-300"
+              >
+                {item.label}
+              </Link>
+            ))}
             {isAuthenticated ? (
               <>
                 <button
                   onClick={handleProfileClick}
-                  className="text-gray-200 hover:text-white font-medium text-sm uppercase tracking-wider transition-colors duration-300 text-left flex items-center"
+                  className="text-gray-300 hover:text-white font-medium text-sm uppercase tracking-wide transition-colors duration-300 text-left flex items-center"
                 >
                   <img
-                    src={userProfilePic || "/default-profile-pic.png"}
+                    src={userProfilePic || "/assets/images/mustang.png"}
                     alt="Perfil"
-                    className="h-8 w-8 rounded-full object-cover border-2 border-gray-600 mr-2"
+                    className="h-8 w-8 rounded-full object-cover border-2 border-gray-700 mr-2"
                   />
                   Perfil
                 </button>
                 <button
                   onClick={handleLogout}
-                  className="text-gray-200 hover:text-red-400 font-medium text-sm uppercase tracking-wider transition-colors duration-300 text-left"
+                  className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 text-left"
                 >
                   Cerrar sesión
                 </button>
               </>
             ) : (
-              <Link
-                to="/login"
-                onClick={() => setIsMenuOpen(false)}
-                className="text-gray-200 hover:text-white font-medium text-sm uppercase tracking-wider transition-colors duration-300"
-              >
-                Login
-              </Link>
+              <div className="flex flex-col space-y-3">
+                <Link
+                  to="/login"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 text-center"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 text-center"
+                >
+                  Registrar
+                </Link>
+              </div>
             )}
           </nav>
         </div>

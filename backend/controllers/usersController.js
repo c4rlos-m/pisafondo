@@ -108,34 +108,30 @@ const createUser = async (req, res) => {
   
 
 const loginUser = async (req, res) => {
-    const { email, password } = req.body;
+  const { email, password } = req.body;
 
-    // Buscar al usuario por su email
-    const { data, error } = await supabase
-        .from('users')
-        .select('*')
-        .eq('email', email)
-        .single();  
+  const { data, error } = await supabase
+    .from('users')
+    .select('id, email, password, role') // Incluye 'role'
+    .eq('email', email)
+    .single();
 
-    if (error || !data) {
-        return res.status(400).json({ error: 'Correo electrónico o contraseña incorrectos' });
-    }
+  if (error || !data) {
+    return res.status(400).json({ error: 'Correo electrónico o contraseña incorrectos' });
+  }
 
-    
-    const isMatch = await bcrypt.compare(password, data.password);
+  const isMatch = await bcrypt.compare(password, data.password);
+  if (!isMatch) {
+    return res.status(400).json({ error: 'Correo electrónico o contraseña incorrectos' });
+  }
 
-    if (!isMatch) {
-        return res.status(400).json({ error: 'Correo electrónico o contraseña incorrectos' });
-    }
+  const token = jwt.sign(
+    { id: data.id, role: data.role }, // Incluye 'role' en el token
+    process.env.JWT_SECRET,
+    { expiresIn: '1h' }
+  );
 
-    
-    const token = jwt.sign(
-        { id: data.id, role: data.role },  
-        process.env.JWT_SECRET,            
-        { expiresIn: '1h' }               
-    );
-
-    res.json({ token });
+  res.json({ token });
 };
 const checkUsername = async (req, res) => {
   try {
