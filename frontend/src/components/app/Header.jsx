@@ -69,13 +69,13 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
             <>
               <button
                 onClick={handleProfileClick}
-                className="focus:outline-none group"
+                className="focus:outline-none group cursor_pointer"
                 aria-label="Ir al perfil"
               >
                 <img
-                  src={userProfilePic || "src/assets/images/mustang.png"}
+                  src={userProfilePic || "src/assets/images/default_user.png"}
                   alt="Perfil"
-                  className="h-9 w-9 rounded-full object-cover border-2 border-gray-700 group-hover:border-white transition-all duration-300"
+                  className="h-9 w-9 rounded-full object-cover border-2 cursor_pointer border-white transition-all duration-300"
                 />
               </button>
               <button
@@ -145,12 +145,12 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
               <>
                 <button
                   onClick={handleProfileClick}
-                  className="text-gray-300 hover:text-white font-medium text-sm uppercase tracking-wide transition-colors duration-300 text-left flex items-center"
+                  className="text-gray-300 hover:text-white font-medium text-sm uppercase tracking-wide transition-colors duration-300 text-left flex items-center cursor_pointer"
                 >
                   <img
-                    src={userProfilePic || "/assets/images/mustang.png"}
+                    src={userProfilePic || "/assets/images/default_user.png"}
                     alt="Perfil"
-                    className="h-8 w-8 rounded-full object-cover border-2 border-gray-700 mr-2"
+                    className="h-8 w-8 rounded-full object-cover border-2 cursor_pointer border-white mr-2"
                   />
                   Perfil
                 </button>
