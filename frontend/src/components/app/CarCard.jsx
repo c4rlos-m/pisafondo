@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback, memo } from "react";
 import { ChevronLeft, ChevronRight, Calendar, Activity } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
 
 const ImageSlider = memo(({ images, marca, modelo }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -134,7 +136,10 @@ const ImageSlider = memo(({ images, marca, modelo }) => {
 });
 
 const CarCard = memo(({ car, onClick }) => {
+  const navigate = useNavigate();
+
   const { 
+    id,
     marca, 
     modelo, 
     precio, 
@@ -148,8 +153,9 @@ const CarCard = memo(({ car, onClick }) => {
   } = car;
 
   const handleCardClick = useCallback(() => {
+    navigate(`/app/coches/${id}`);
     if (onClick) onClick(car);
-  }, [car, onClick]);
+  }, [car, onClick, navigate, id]);
 
   const formatPrice = useCallback((price) => {
     return price.toLocaleString("es-ES", { 
