@@ -25,14 +25,16 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
   return (
     <header className="bg-gray-100 text-black py-4 px-6 sticky top-0 z-20 shadow-md">
       <div className="container mx-auto flex items-center justify-between">
-        {/* Logo a la izquierda */}
         <div className="flex items-center">
           <Link to="/" className="flex items-center space-x-3">
             <img
-              src="/LogoTrans.png"
+
+              src="Logo_big_v.svg"
+
               alt="Logo"
               className="h-10 w-auto object-contain transition-transform duration-300 hover:scale-105"
             />
+
             <span className="text-2xl font-bold tracking-tight">PISAFONDO</span>
           </Link>
         </div>
@@ -61,6 +63,7 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
         </nav>
 
         {/* Botones de acción o perfil (escritorio) */}
+
         <div className="hidden md:flex items-center space-x-4">
           {isAuthenticated ? (
             <>
@@ -83,24 +86,28 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
               </button>
             </>
           ) : (
+
             <div className="flex space-x-3">
               <Link
                 to="/login"
                 className="bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300"
+
+ 
               >
                 Login
               </Link>
               <Link
                 to="/register"
+
                 className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300"
               >
                 Registrar
               </Link>
             </div>
+
           )}
         </div>
 
-        {/* Botón hamburguesa para móviles */}
         <button
           onClick={toggleMenu}
           className="md:hidden text-gray-300 hover:text-white focus:outline-none"
@@ -110,10 +117,10 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
         </button>
       </div>
 
-      {/* Menú móvil (desplegable) */}
       {isMenuOpen && (
         <div className="md:hidden bg-gray-900 py-4 px-6 absolute top-full left-0 w-full shadow-lg">
           <nav className="flex flex-col space-y-4">
+
             {[
               { to: "/", label: "Inicio" },
               { to: "/app", label: "Coches" },
@@ -133,6 +140,7 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
                 {item.label}
               </Link>
             ))}
+
             {isAuthenticated ? (
               <>
                 <button
@@ -154,22 +162,26 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
                 </button>
               </>
             ) : (
+
               <div className="flex flex-col space-y-3">
                 <Link
                   to="/login"
                   onClick={() => setIsMenuOpen(false)}
                   className="bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 text-center"
+
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
                   onClick={() => setIsMenuOpen(false)}
+
                   className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 text-center"
                 >
                   Registrar
                 </Link>
               </div>
+
             )}
           </nav>
         </div>

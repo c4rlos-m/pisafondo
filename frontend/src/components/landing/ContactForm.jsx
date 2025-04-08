@@ -183,6 +183,7 @@ const ContactForm = () => {
         <div className="mt-8 text-center text-sm text-gray-500">
           <p>Nos pondremos en contacto contigo en un plazo máximo de 24 horas laborables.</p>
         </div>
+
       </div>
     </section>
   );
