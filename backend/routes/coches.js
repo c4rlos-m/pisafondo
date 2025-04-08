@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const carsController = require('../controllers/carsControllers');
-const authenticateJWT = require('../middleware/auth');
+const {authenticateJWT} = require('../middleware/auth');
 
 router.get('/destacados', carsController.getFeaturedCars);
 router.get('/all', carsController.getAllCars); // Nueva ruta
