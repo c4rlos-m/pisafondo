@@ -9,7 +9,7 @@ import NotFound from './pages/NotFound';
 import SellCar from './pages/SellCar';
 import ContactPage from './pages/Contact';
 import ContactsPageAdmin from './pages/admin/contacts';
-
+import AboutUs from './pages/AboutUs';
 import { jwtDecode } from 'jwt-decode';
 
 function App() {
@@ -76,6 +76,7 @@ function App() {
         <Route path="/app" element={<AppHome />} />
         <Route path="/app/sell" element={<ProtectedRoute element={<SellCar />} />} />
         <Route path="/app/contact" element={<ContactPage />} />
+        <Route path="app/about" element={<AboutUs />} />
         <Route
           path="/app/admin"
           element={<ProtectedRoute element={<ContactsPageAdmin />} requireAdmin={true} />}
