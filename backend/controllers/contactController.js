@@ -79,16 +79,36 @@ const getContacts = async (req, res) => {
     const { contactId, replyMessage } = req.body;
   
     try {
+      // Asegúrate de que contactId es un número entero
+      const contactIdInt = parseInt(contactId, 10);
+  
+      if (isNaN(contactIdInt)) {
+        return res.status(400).json({ error: 'El ID de contacto debe ser un número válido' });
+      }
+  
       // Obtener el contacto desde Supabase
       const { data: contact, error: fetchError } = await supabase
         .from('contacts')
         .select('name, email, subject')
-        .eq('id', contactId)
+        .eq('id', contactIdInt)
         .single();
   
       if (fetchError || !contact) {
         console.error('Error al obtener el contacto:', fetchError);
         return res.status(404).json({ error: 'Contacto no encontrado' });
+      }
+  
+      // Actualizar el estado de replied
+      const { error: updateError } = await supabase
+        .from('contacts')
+        .update({ replied: true })
+        .eq('id', contactIdInt);
+  
+      if (updateError) {
+        console.error('❌ Error al actualizar replied:', updateError);
+        return res.status(500).json({ error: 'Error al actualizar el contacto' });
+      } else {
+        console.log(`✅ Contacto ${contactIdInt} marcado como respondido`);
       }
   
       // Configurar el transporte de Nodemailer
@@ -114,20 +134,8 @@ const getContacts = async (req, res) => {
         `,
       };
   
-      // Enviar correo
       await transporter.sendMail(mailOptions);
       console.log('Respuesta enviada a:', contact.email);
-  
-      // ✅ Marcar como respondido en la base de datos
-      const { error: updateError } = await supabase
-        .from('contacts')
-        .update({ replied: true })
-        .eq('id', contactId);
-  
-      if (updateError) {
-        console.error('Error al marcar como respondido:', updateError);
-        return res.status(500).json({ error: 'No se pudo actualizar el estado del contacto' });
-      }
   
       res.status(200).json({ message: 'Respuesta enviada exitosamente' });
     } catch (error) {
@@ -135,5 +143,6 @@ const getContacts = async (req, res) => {
       res.status(500).json({ error: 'Error interno al enviar la respuesta' });
     }
   };
+  
   
   module.exports = { createContact, getContacts, replyContact };

@@ -81,6 +81,7 @@ function App() {
           element={<ProtectedRoute element={<ContactsPageAdmin />} requireAdmin={true} />}
         />
         <Route path="*" element={<NotFound />} />
+        
       </Routes>
     </Router>
   );

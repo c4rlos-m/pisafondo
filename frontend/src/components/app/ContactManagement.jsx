@@ -26,24 +26,27 @@ const ContactManagement = () => {
       const token = localStorage.getItem('token');
       await axios.post(
         'http://localhost:5000/contact/reply',
-        { contactId, replyMessage },
+        { contactId: parseInt(contactId, 10), replyMessage },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert('Respuesta enviada');
-      setReplyMessage('');
-      setSelectedContactId(null);
-
-      // Actualiza el contacto como respondido
+      
+      // Actualizar el estado para marcar el contacto como respondido
       setContacts((prevContacts) =>
-        prevContacts.map((c) =>
-          c.id === contactId ? { ...c, replied: true } : c
+        prevContacts.map((contact) =>
+          contact.id === contactId ? { ...contact, replied: true } : contact
         )
       );
+      
+      setReplyMessage('');
+      setSelectedContactId(null);
     } catch (error) {
       console.error('Error al enviar respuesta:', error);
       alert('Error al enviar la respuesta');
     }
   };
+  
+  
 
   return (
     <div className="p-6">
@@ -52,8 +55,8 @@ const ContactManagement = () => {
         {contacts.map((contact) => (
           <div
             key={contact.id}
-            className={`border p-4 rounded-lg ${
-              contact.replied ? 'bg-green-100 border-green-400' : ''
+            className={`border p-4 rounded-lg transition-colors duration-300 ${
+              contact.replied ? 'bg-green-100' : 'bg-white'
             }`}
           >
             <p><strong>Nombre:</strong> {contact.name}</p>
