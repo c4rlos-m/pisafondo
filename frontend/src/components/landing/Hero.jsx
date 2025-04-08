@@ -49,6 +49,7 @@ const Hero = () => {
             <span>Prueba sin compromiso</span>
           </div>
         </div>
+
       </div>
       
       {/* Decorative elements */}
