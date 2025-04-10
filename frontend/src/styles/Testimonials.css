@@ -1,0 +1,93 @@
+:root {
+    --color-bg-light: #f5f9f7;
+    --color-text-dark: #1f2937;
+    --color-text-secondary: #374151;
+    --color-text-muted: #6b7280;
+    --color-accent: #22c55e;
+    --color-card-bg: #ffffff;
+    --color-shadow: rgba(0, 0, 0, 0.05);
+    --color-border: #e5e7eb;
+  }
+  
+  .testimonials-section {
+    padding: 5rem 1.5rem;
+    background-color: var(--color-bg-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .testimonials-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  
+  .testimonials-container {
+    max-width: 1100px;
+    width: 100%;
+  }
+  
+  .testimonials-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+  
+  .testimonial-card {
+    background: var(--color-card-bg);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 20px var(--color-shadow);
+    text-align: center;
+    max-width: 320px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  }
+  
+  .testimonial-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .testimonial-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--color-border);
+    margin-bottom: 0.75rem;
+  }
+  
+  .testimonial-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+  }
+  
+  .testimonial-city {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+  
+  .testimonial-comment {
+    font-style: italic;
+    color: var(--color-text-muted);
+    margin: 1rem 0 0.5rem;
+  }
+  
+  .testimonial-description {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+  
