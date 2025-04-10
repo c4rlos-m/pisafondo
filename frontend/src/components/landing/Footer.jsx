@@ -1,4 +1,5 @@
 // components/landing/Footer.js
+/*
 import React from 'react';
 
 const Footer = () => {
@@ -31,6 +32,47 @@ const Footer = () => {
         <p>© 2025 Premium Cars. Todos los derechos reservados.</p>
       </div>
     </footer>
+    </>
+  );
+};
+
+export default Footer;
+
+*/
+
+// components/landing/Footer.js
+import React from 'react';
+import '../../styles/Footer.css';
+
+const Footer = () => {
+  return (
+    <>
+      <br></br>
+      <footer id="contact" className="footer">
+        <div className="footer-container">
+          <div className="footer-section">
+            <h3 className="footer-title">Premium Cars</h3>
+            <p>Simplificando la excelencia automotriz.</p>
+          </div>
+          <div className="footer-section">
+            <h3 className="footer-subtitle">Enlaces</h3>
+            <ul className="footer-links">
+              <li><a href="#home">Inicio</a></li>
+              <li><a href="#features">Características</a></li>
+              <li><a href="/app">Explorar</a></li>
+            </ul>
+          </div>
+          <div className="footer-section">
+            <h3 className="footer-subtitle">Contacto</h3>
+            <p>Email: info@premiumcars.com</p>
+            <p>Tel: +34 123 456 789</p>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <br></br><br></br>
+          © 2025 PISAFONDO. Todos los derechos reservados.
+        </div>
+      </footer>
     </>
   );
 };
