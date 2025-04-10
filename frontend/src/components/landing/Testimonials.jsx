@@ -46,7 +46,7 @@ const testimonials = [
   {
     name: 'Alex G',
     city: 'Viladecans, España',
-    comment: 'Me sentí acompañado en todo el proceso de compra.',
+    comment: 'Me sentí acompañado en todo el proceso de compra online.',
     description: 'Valoró especialmente la asistencia personalizada del equipo.',
     image: '/gilarte.jpg',
   },
