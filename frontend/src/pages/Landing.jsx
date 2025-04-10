@@ -7,7 +7,6 @@ import FeaturedCarsScroll from '../components/landing/FeaturedCarsScroll';
 import Features from '../components/landing/Features';
 import BentoGrid from '../components/landing/BentoGrid';
 import Testimonials from '../components/landing/Testimonials';
-import ContactForm from '../components/landing/ContactForm';
 import Footer from '../components/landing/Footer';
 
 const LandingPage = () => {
@@ -21,7 +20,6 @@ const LandingPage = () => {
       <BentoGrid />
       <Testimonials />
       <CallToAction title="Contáctanos" subtitle="Estamos aquí para ayudarte." ctaText="Enviar Mensaje" href="#contact" />
-      <ContactForm />
       <Footer />
     </div>
   );

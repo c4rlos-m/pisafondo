@@ -29,7 +29,7 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
           <Link to="/" className="flex items-center space-x-3">
             <img
 
-              src="Logo_big_v.svg"
+              src="/Logo_big_v.svg"
 
               alt="Logo"
               className="h-10 w-auto object-contain transition-transform duration-300 hover:scale-105"

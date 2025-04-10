@@ -13,11 +13,14 @@ app.use(express.json());
 const usersRoutes = require('./routes/users');
 const carsRoutes = require('./routes/coches');
 const contactRoutes = require('./routes/contact');
+const dealerRoutes = require('./routes/dealers');
 
 // Usar las rutas
 app.use('/users', usersRoutes);
 app.use('/cars', carsRoutes);
 app.use('/contact', contactRoutes);
+app.use('/dealers', dealerRoutes);
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
