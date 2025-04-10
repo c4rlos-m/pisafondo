@@ -107,7 +107,7 @@ const CarDetail = () => {
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Barra de navegación superior */}
-      <div className="bg-white shadow-sm">
+      <div className=" shadow-sm bg-white mt-2 rounded-xl">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center">
           <button 
             onClick={() => navigate('/app')}

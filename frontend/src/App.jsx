@@ -11,8 +11,10 @@ import ContactPage from './pages/Contact';
 import ContactsPageAdmin from './pages/admin/contacts';
 import AboutUs from './pages/AboutUs';
 import CarDetailPage from "./pages/CarDetailPage";
-
+import ForgotPassword from './pages/ForgotPassword';
+import DealersPage from './pages/DealersPage';
 import { jwtDecode } from 'jwt-decode';
+import 'leaflet/dist/leaflet.css';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -80,6 +82,8 @@ function App() {
         <Route path="/app/contact" element={<ContactPage />} />
         <Route path="/app/about" element={<AboutUs />} />
         <Route path="/app/coches/:id" element={<CarDetailPage />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/app/ubicacion" element={<DealersPage />} />
         <Route
           path="/app/admin"
           element={<ProtectedRoute element={<ContactsPageAdmin />} requireAdmin={true} />}
