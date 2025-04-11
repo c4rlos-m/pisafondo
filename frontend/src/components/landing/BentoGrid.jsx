@@ -71,14 +71,7 @@ export default function CarDealershipBento() {
       size: "col-span-1 row-span-1",
       color: "bg-purple-50"
     },
-    {
-      id: 9,
-      title: "Contacto",
-      description: "Estamos aquí para ayudarte",
-      icon: <Phone className="text-blue-600" />,
-      size: "col-span-2 row-span-1",
-      color: "bg-slate-50"
-    }
+    
   ];
 
   return (
@@ -150,9 +143,7 @@ export default function CarDealershipBento() {
           </div>
         ))}
       </div>
-      <div className="text-center mt-8 text-slate-600">
-        © {new Date().getFullYear()} AutoElite. Todos los derechos reservados.
-      </div>
+      
     </div>
   );
 }
