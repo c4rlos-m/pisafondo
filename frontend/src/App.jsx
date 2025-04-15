@@ -13,6 +13,7 @@ import AboutUs from './pages/AboutUs';
 import CarDetailPage from "./pages/CarDetailPage";
 import ForgotPassword from './pages/ForgotPassword';
 import DealersPage from './pages/DealersPage';
+import ProfilePage from './pages/profile/ProfilePage';
 import { jwtDecode } from 'jwt-decode';
 import 'leaflet/dist/leaflet.css';
 
@@ -84,6 +85,7 @@ function App() {
         <Route path="/app/coches/:id" element={<CarDetailPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/app/ubicacion" element={<DealersPage />} />
+        <Route path="/app/profile" element={<ProtectedRoute element={<ProfilePage />} />} />
         <Route
           path="/app/admin"
           element={<ProtectedRoute element={<ContactsPageAdmin />} requireAdmin={true} />}

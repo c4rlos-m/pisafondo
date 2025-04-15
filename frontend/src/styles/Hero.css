@@ -1,185 +1,285 @@
 :root {
-    --primary-color: #1D4ED8;
-    --accent-color: #f5f5f5;
-    --dark-color: #111827;
-    --light-color: #F3F4F6;
-    --secondary-dark: #fbfcff;
-    --background-color: #ffffff; /* Aquí agregamos la variable para el color de fondo */
-    --accent-color-available: #03fc31;
-  }
-  
+  --primary-color: #1e40af;
+  --accent-color: #ffffff;
+  --dark-color: #0f172a;
+  --light-color: #e5e7eb;
+  --highlight-color: #f59e0b;
+  --transition: all 0.3s ease;
+  --gradient-primary: linear-gradient(90deg, #1e40af, #3b82f6);
+  --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.hero-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: url('../../src/assets/images/carroad.webp') no-repeat center/cover;
+  opacity: 0.7;
+  z-index: 1;
+  filter: blur(1px);
+  background-color: rgba(0, 0, 0, 0.3); /* Fallback si la imagen no carga */
+}
+
+.hero-content {
+  position: relative;
+  text-align: center;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--box-shadow);
+}
+
+.animate-fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.badge-container {
+  margin-bottom: 1rem;
+}
+
+.hero-badge {
+  background: var(--gradient-primary);
+  color: var(--accent-color);
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.hero-subtitle {
+  display: block;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  letter-spacing: 0.1rem;
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--accent-color);
+  margin-bottom: 1.5rem;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.highlight-text {
+  color: var(--highlight-color);
+  font-style: italic;
+  position: relative;
+}
+
+.highlight-text::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 10%;
+  width: 80%;
+  height: 3px;
+  background: var(--highlight-color);
+  border-radius: 2px;
+}
+
+.hero-description {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--light-color);
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.primary-btn {
+  background: var(--gradient-primary);
+  color: var(--accent-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.primary-btn:hover,
+.primary-btn:focus {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.secondary-btn {
+  border: 2px solid var(--accent-color);
+  background: transparent;
+  color: var(--accent-color);
+}
+
+.secondary-btn:hover,
+.secondary-btn:focus {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.cta-icon {
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.cta-button:hover .cta-icon,
+.cta-button:focus .cta-icon {
+  transform: translateX(5px);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  transition: var(--transition);
+}
+
+.feature-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-3px);
+}
+
+.feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--primary-color);
+  border-radius: 8px;
+}
+
+.feature-text h3 {
+  color: var(--accent-color);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.feature-text p {
+  color: var(--light-color);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  margin-top: 2rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--accent-color);
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--light-color);
+  text-transform: uppercase;
+}
+
+.hero-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 8rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  z-index: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .hero-container {
-    position: relative;
-    min-height: 100vh;
-    background-color: var(--background-color); /* Ahora usa la variable para el color de fondo */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem 1.5rem;
-    color: white;
-    overflow: hidden;
+    min-height: 80vh;
+    padding: 1.5rem 1rem;
   }
-  
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background-image: url('../../src/assets/images/carroad.webp'); /* Cambia la ruta a la imagen de fondo */
-    /*background: linear-gradient(120deg, rgba(255,255,255,0.1), rgba(255,255,255,0));  /* <-- ESTO oscurece el fondo */
-    z-index: 1;
-  }
-  
-  .hero-content {
-    position: relative;
-    text-align: center;
-    z-index: 2;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  
-  .hero-subtitle {
-    font-size: 1.25rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    color: var(--accent-color);
-    letter-spacing: 0.1rem;
-    margin-bottom: 1.5rem;
-    animation: fadeIn 1s ease-in-out;
-  }
-  
-  .hero-title {
-    font-size: 3.5rem;
-    font-weight: 800;
-    line-height: 1.2;
-    color: var(--dark-color);
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.05em;
-    animation: slideIn 1.2s ease-out;
-  }
-  
-  .highlight-text {
-    background: linear-gradient(90deg, #fcfdff, #fb9302);
-    -webkit-background-clip: text;
-    color: transparent;
-  }
-  
-  .hero-description {
-    color: #000000;
-    font-size: 1.25rem;
-    font-weight: 400;
-    max-width: 700px;
-    margin: 0 auto 2.5rem auto;
-    line-height: 1.6;
-    animation: fadeIn 1s ease-in-out;
-  }
-  
+
   .cta-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-bottom: 2.5rem;
+    flex-direction: column;
+    align-items: center;
   }
-  
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+
+  .hero-description {
+    font-size: clamp(0.875rem, 2vw, 1rem);
+  }
+
   .cta-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 2.5rem;
-    border-radius: 9999px;
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: 1.125rem;
-    cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-  }
-  
-  .primary-btn {
-    background-color: var(--primary-color);
-    color: white;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-  }
-  
-  .primary-btn:hover {
-    background-color: #2563eb;
-    transform: translateY(-5px);
-  }
-  
-  .secondary-btn {
-    border: 2px solid var(--dark-color);
-    background: transparent;
-    color: var(--dark-color);
-  }
-  
-  .secondary-btn:hover {
-    background-color: var(--light-color);
-    transform: translateY(-5px);
-  }
-  
-  .cta-icon {
-    margin-left: 1rem;
-    transition: transform 0.3s ease;
-  }
-  
-  .cta-button:hover .cta-icon {
-    transform: translateX(5px);
-  }
-  
-  .info {
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    color: var(--secondary-dark);
-  }
-  
-  .info-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .indicator {
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-  }
-  
-  .available {
-    background-color: var(--accent-color-available);
-  }
-  
-  .test-drive {
-    background-color: var(--primary-color);
-  }
-  
-  .hero-footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
     width: 100%;
-    height: 10rem;
-    background: linear-gradient(to top, var(--light-color), transparent);
-    z-index: 0;
+    padding: 0.75rem 1.5rem;
   }
-  
-  /* Animations */
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes slideIn {
-    0% {
-      transform: translateX(-50px);
-      opacity: 0;
-    }
-    100% {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-  
+}
