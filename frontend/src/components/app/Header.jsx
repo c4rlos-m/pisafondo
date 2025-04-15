@@ -14,7 +14,7 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
   };
 
   const handleProfileClick = () => {
-    navigate("/profile");
+    navigate("/app/profile");
     setIsMenuOpen(false);
   };
 
