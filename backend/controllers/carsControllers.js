@@ -28,6 +28,8 @@ const getAllCars = async (req, res) => {
     .from('coches')
     .select('*')
     .eq('disponible', true) // Solo coches disponibles
+    .eq('anuncio_validado', true)
+    .eq('is_deleted', false)
     .order('creado_en', { ascending: false }); // Ordenar por fecha de creación
     
     if (error) throw error;

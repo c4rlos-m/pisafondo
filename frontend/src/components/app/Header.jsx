@@ -47,9 +47,18 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
             { to: "/app/sell", label: "Vender" },
             { to: "/app/about", label: "Sobre nosotros" },
             { to: "/app/contact", label: "Contacto" },
+
             ...(isAuthenticated && userRole === 'admin' // Agrega Gestión de Contactos solo para admins
-              ? [{ to: "/app/admin", label: "Gestión de Contactos" }]
-              : []),
+              ? [
+                { to: "/app/administracion", label: "Administración" },
+                // { to: "/app/admin", label: "Gestión de Contactos" },
+                // { to: "/app/validacion_coches", label: "Validación de vehículos" },
+              ]
+              : []
+            
+            ),
+
+              
           ].map((item) => (
             <Link
               key={item.label}
