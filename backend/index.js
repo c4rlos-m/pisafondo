@@ -14,12 +14,14 @@ const usersRoutes = require('./routes/users');
 const carsRoutes = require('./routes/coches');
 const contactRoutes = require('./routes/contact');
 const dealerRoutes = require('./routes/dealers');
+const adminRoutes = require('./routes/admin');
 
 // Usar las rutas
 app.use('/users', usersRoutes);
 app.use('/cars', carsRoutes);
 app.use('/contact', contactRoutes);
 app.use('/dealers', dealerRoutes);
+app.use('/admin', adminRoutes);
 
 
 const PORT = process.env.PORT || 5000;

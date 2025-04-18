@@ -16,6 +16,7 @@ import DealersPage from './pages/DealersPage';
 import ProfilePage from './pages/profile/ProfilePage';
 import { jwtDecode } from 'jwt-decode';
 import 'leaflet/dist/leaflet.css';
+import { ValidacionVehiculos } from './pages/admin/ValidacionVehiculos';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -86,10 +87,17 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/app/ubicacion" element={<DealersPage />} />
         <Route path="/app/profile" element={<ProtectedRoute element={<ProfilePage />} />} />
+
         <Route
           path="/app/admin"
           element={<ProtectedRoute element={<ContactsPageAdmin />} requireAdmin={true} />}
         />
+
+        <Route
+          path="/app/validacion_coches"
+          element={<ProtectedRoute element={<ValidacionVehiculos />} requireAdmin={true} />}
+        />
+
         <Route path="*" element={<NotFound />} />
         
       </Routes>
