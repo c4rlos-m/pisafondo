@@ -50,8 +50,9 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
 
             ...(isAuthenticated && userRole === 'admin' // Agrega Gestión de Contactos solo para admins
               ? [
-                { to: "/app/admin", label: "Gestión de Contactos" },
-                { to: "/app/validacion_coches", label: "Validación de vehículos" },
+                { to: "/app/administracion", label: "Administración" },
+                // { to: "/app/admin", label: "Gestión de Contactos" },
+                // { to: "/app/validacion_coches", label: "Validación de vehículos" },
               ]
               : []
             

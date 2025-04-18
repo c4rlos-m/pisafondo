@@ -17,6 +17,7 @@ import ProfilePage from './pages/profile/ProfilePage';
 import { jwtDecode } from 'jwt-decode';
 import 'leaflet/dist/leaflet.css';
 import { ValidacionVehiculos } from './pages/admin/ValidacionVehiculos';
+import { Administracion } from './pages/admin/Administracion';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -87,6 +88,12 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/app/ubicacion" element={<DealersPage />} />
         <Route path="/app/profile" element={<ProtectedRoute element={<ProfilePage />} />} />
+
+        <Route
+          path="/app/administracion"
+          element={<ProtectedRoute element={<Administracion />} requireAdmin={true} />}
+        />
+
 
         <Route
           path="/app/admin"
