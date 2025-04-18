@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button } from "../../components/Button";
+import { APP_URL } from "../../config";
 
 
 export const ValidacionVehiculos = () => {
@@ -8,7 +9,7 @@ export const ValidacionVehiculos = () => {
 
     const fetchData = () => {
         const token = localStorage.getItem('token');
-        axios.get('http://localhost:5000/admin/vehiculos_por_validar/', {
+        axios.get(`${APP_URL}/admin/vehiculos_por_validar/`, {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then((resultFetch) => {
@@ -29,7 +30,7 @@ export const ValidacionVehiculos = () => {
 
 
         const token = localStorage.getItem('token');
-        axios.post('http://localhost:5000/admin/vehiculo_aceptado/', {
+        axios.post(`${APP_URL}/admin/vehiculo_aceptado/`, {
             id: coche.id
         }, {
             headers: { Authorization: `Bearer ${token}` },
@@ -49,17 +50,17 @@ export const ValidacionVehiculos = () => {
         }
 
         const token = localStorage.getItem('token');
-        axios.post('http://localhost:5000/admin/vehiculo_denegado/', {
+        axios.post(`${APP_URL}/admin/vehiculo_denegado/`, {
             id: coche.id
         }, {
             headers: { Authorization: `Bearer ${token}` },
         })
-        .then((resultFetch) => {
-            const { succes } = resultFetch.data
-            if (succes) {
-                fetchData()
-            }
-        })
+            .then((resultFetch) => {
+                const { succes } = resultFetch.data
+                if (succes) {
+                    fetchData()
+                }
+            })
     }
 
     return (
