@@ -83,7 +83,7 @@ export const ValidacionVehiculos = () => {
                     {coches.map((c) => (
                         <tr key={c.id} className="border">
                             <td className="border p-2">
-                                {c.id} -- usuario
+                                {c.users.name}
                             </td>
                             <td className="border p-2">
                                 {c.marca}

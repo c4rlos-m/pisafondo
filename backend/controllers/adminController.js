@@ -1,9 +1,9 @@
 const supabase = require('../config/database');
 
 const vehiculosPorValidar = async (req, res) => {
-  const { data, error } = await supabase
+  const { data: coches, error } = await supabase
     .from('coches')
-    .select('*')
+    .select('*, users(*)')
     .eq('anuncio_validado', false)
     .eq('is_deleted', false)
 
@@ -15,7 +15,7 @@ const vehiculosPorValidar = async (req, res) => {
 
   res.status(201).json({
     succes: true,
-    data,
+    data: coches,
   });
 };
 
