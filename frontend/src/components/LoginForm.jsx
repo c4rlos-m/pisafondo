@@ -112,8 +112,8 @@ const LoginForm = ({ setIsAuthenticated }) => {
               type="submit"
               disabled={isLoading}
               className={`w-full py-2 flex items-center justify-center rounded-lg text-sm font-medium transition-all duration-200 space-x-1
-                ${isLoading 
-                  ? "bg-blue-400 cursor-not-allowed" 
+                ${isLoading
+                  ? "bg-blue-400 cursor-not-allowed"
                   : "bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                 } text-white`}
             >
@@ -121,16 +121,16 @@ const LoginForm = ({ setIsAuthenticated }) => {
               {!isLoading && <ArrowRight className="h-4 w-4" />}
             </button>
 
-            {/* <div className="relative py-2">
+            <div className="relative py-2">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-200"></div>
               </div>
               <div className="relative flex justify-center">
                 <span className="px-2 bg-white text-xs text-gray-500">O continúa con</span>
               </div>
-            </div> */}
+            </div>
 
-            {/* <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
                 className="flex items-center justify-center py-1.5 px-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-sm"
@@ -147,12 +147,12 @@ const LoginForm = ({ setIsAuthenticated }) => {
                 type="button"
                 className="flex items-center justify-center py-1.5 px-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-sm"
               >
-                <svg className="h-4 w-4 mr-1" fill="#1877F2" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                <svg className="h-4 w-4 mr-1" fill="" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.164 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.153-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.647.349-1.087.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.114 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0022 12c0-5.523-4.477-10-10-10z" />
                 </svg>
-                Facebook
+                Github
               </button>
-            </div> */}
+            </div>
 
             <div className="text-center text-xs mt-2">
               <p className="text-gray-600">
