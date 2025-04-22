@@ -12,7 +12,7 @@ const PromoVideo = () => {
       <div className="promo-video-wrapper">
         <iframe
           className="promo-video"
-          src="https://www.youtube.com/embed/HY2COJVnNfI?si=hjU5fLrmv8-V4mLb"
+          src="https://www.youtube.com/embed/5B3JGUXSRJo?si=z2mG4kspTnv7p30v"
           title="Video Promocional"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
