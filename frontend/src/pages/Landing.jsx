@@ -10,6 +10,7 @@ import Testimonials from '../components/landing/Testimonials';
 import Footer from '../components/landing/Footer';
 
 import ChatPromoPopup from '../components/landing/ChatPromoPopup';
+import PromoVideo from '../components/landing/video';
 
 
 const LandingPage = () => {
