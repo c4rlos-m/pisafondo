@@ -40,7 +40,7 @@ const SearchBox = ({ onSearch, loading }) => {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Introduce código postal o ciudad"
+            placeholder="Introduce nombre de ciudad"
             className="w-full p-4 pl-12 border border-gray-300 rounded-lg shadow-sm focus:outline-none bg-white text-gray-700 placeholder-gray-400"
             disabled={loading}
             onFocus={() => setFocused(true)}

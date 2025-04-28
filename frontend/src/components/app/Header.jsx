@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, MessageCircle } from "lucide-react";
 
 const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole }) => {
   const navigate = useNavigate();
@@ -28,13 +28,10 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
         <div className="flex items-center">
           <Link to="/" className="flex items-center space-x-3">
             <img
-
               src="/Logo_big_v.svg"
-
               alt="Logo"
               className="h-10 w-auto object-contain transition-transform duration-300 hover:scale-105"
             />
-
             <span className="text-2xl font-bold tracking-tight">PISAFONDO</span>
           </Link>
         </div>
@@ -45,20 +42,14 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
             { to: "/", label: "Inicio" },
             { to: "/app", label: "Coches" },
             { to: "/app/sell", label: "Vender" },
+            { to: "/app/ubicacion", label: "Concesionarios" },
             { to: "/app/about", label: "Sobre nosotros" },
             { to: "/app/contact", label: "Contacto" },
-
-            ...(isAuthenticated && userRole === 'admin' // Agrega Gestión de Contactos solo para admins
+            ...(isAuthenticated && userRole === "admin"
               ? [
-                { to: "/app/administracion", label: "Administración" },
-                // { to: "/app/admin", label: "Gestión de Contactos" },
-                // { to: "/app/validacion_coches", label: "Validación de vehículos" },
-              ]
-              : []
-            
-            ),
-
-              
+                  { to: "/app/administracion", label: "Administración" },
+                ]
+              : []),
           ].map((item) => (
             <Link
               key={item.label}
@@ -72,19 +63,26 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
         </nav>
 
         {/* Botones de acción o perfil (escritorio) */}
-
-        <div className="hidden md:flex items-center space-x-4">
+        <div className="hidden md:flex items-center space-x-3">
           {isAuthenticated ? (
             <>
+              {/* Live Chat Button */}
+              <Link
+                to="/app/liveChat"
+                className="flex items-center justify-center h-9 w-9 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full shadow-sm hover:shadow-md hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                aria-label="Ir al chat en vivo"
+              >
+                <MessageCircle size={20} />
+              </Link>
               <button
                 onClick={handleProfileClick}
-                className="focus:outline-none group cursor_pointer"
+                className="focus:outline-none group"
                 aria-label="Ir al perfil"
               >
                 <img
                   src={userProfilePic || "src/assets/images/default_user.png"}
                   alt="Perfil"
-                  className="h-9 w-9 rounded-full object-cover border-2 cursor_pointer border-white transition-all duration-300"
+                  className="h-9 w-9 rounded-full object-cover border-2 border-white transition-all duration-300"
                 />
               </button>
               <button
@@ -95,49 +93,46 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
               </button>
             </>
           ) : (
-
             <div className="flex space-x-3">
               <Link
                 to="/login"
                 className="bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300"
-
- 
               >
                 Login
               </Link>
               <Link
                 to="/register"
-
                 className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300"
               >
                 Registrar
               </Link>
             </div>
-
           )}
         </div>
 
+        {/* Botón de menú móvil */}
         <button
           onClick={toggleMenu}
-          className="md:hidden text-gray-300 hover:text-white focus:outline-none"
+          className="md:hidden text-gray-700 hover:text-blue-500 focus:outline-none"
           aria-label="Toggle menu"
         >
           {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
+      {/* Menú móvil */}
       {isMenuOpen && (
         <div className="md:hidden bg-gray-900 py-4 px-6 absolute top-full left-0 w-full shadow-lg">
           <nav className="flex flex-col space-y-4">
-
             {[
               { to: "/", label: "Inicio" },
               { to: "/app", label: "Coches" },
               { to: "/app/sell", label: "Vender" },
+              { to: "/app/ubicacion", label: "Concesionarios" },
               { to: "/app/about", label: "Sobre nosotros" },
               { to: "/app/contact", label: "Contacto" },
-              ...(isAuthenticated && userRole === 'admin' // Agrega Gestión de Contactos solo para admins
-                ? [{ to: "/app/admin", label: "Gestión de Contactos" }]
+              ...(isAuthenticated && userRole === "admin"
+                ? [{ to: "/app/administracion", label: "Administración" }]
                 : []),
             ].map((item) => (
               <Link
@@ -152,14 +147,25 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
 
             {isAuthenticated ? (
               <>
+                {/* Live Chat Button (Mobile) */}
+                <Link
+                  to="/app/liveChat"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="flex items-center space-x-2 text-gray-300 hover:text-white font-medium text-sm uppercase tracking-wide transition-colors duration-300"
+                >
+                  <span className="flex items-center justify-center h-8 w-8 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full">
+                    <MessageCircle size={16} />
+                  </span>
+                  Chat en vivo
+                </Link>
                 <button
                   onClick={handleProfileClick}
-                  className="text-gray-300 hover:text-white font-medium text-sm uppercase tracking-wide transition-colors duration-300 text-left flex items-center cursor_pointer"
+                  className="text-gray-300 hover:text-white font-medium text-sm uppercase tracking-wide transition-colors duration-300 text-left flex items-center"
                 >
                   <img
                     src={userProfilePic || "/assets/images/default_user.png"}
                     alt="Perfil"
-                    className="h-8 w-8 rounded-full object-cover border-2 cursor_pointer border-white mr-2"
+                    className="h-8 w-8 rounded-full object-cover border-2 border-white mr-2"
                   />
                   Perfil
                 </button>
@@ -171,26 +177,22 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
                 </button>
               </>
             ) : (
-
               <div className="flex flex-col space-y-3">
                 <Link
                   to="/login"
                   onClick={() => setIsMenuOpen(false)}
                   className="bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 text-center"
-
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
                   onClick={() => setIsMenuOpen(false)}
-
                   className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 text-center"
                 >
                   Registrar
                 </Link>
               </div>
-
             )}
           </nav>
         </div>

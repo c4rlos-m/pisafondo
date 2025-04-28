@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@react-google-maps/api": "^2.20.6",
+    "@supabase/supabase-js": "^2.49.4",
     "@tailwindcss/vite": "^4.0.14",
     "axios": "^1.8.4",
     "framer-motion": "^12.5.0",
@@ -19,9 +20,11 @@
     "lucide-react": "^0.483.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-flagkit": "^2.0.4",
     "react-icons": "^5.5.0",
     "react-leaflet": "^5.0.0",
     "react-router-dom": "^7.4.0",
+    "react-toastify": "^11.0.5",
     "tailwindcss": "^4.0.14"
   },
   "devDependencies": {

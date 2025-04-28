@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify'; // Importar ToastContainer
+import 'react-toastify/dist/ReactToastify.css'; // Importar estilos de react-toastify
 import Header from './components/app/Header';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
@@ -10,40 +12,40 @@ import SellCar from './pages/SellCar';
 import ContactPage from './pages/Contact';
 import ContactsPageAdmin from './pages/admin/contacts';
 import AboutUs from './pages/AboutUs';
-import CarDetailPage from "./pages/CarDetailPage";
+import CarDetailPage from './pages/CarDetailPage';
 import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import DealersPage from './pages/DealersPage';
 import ProfilePage from './pages/profile/ProfilePage';
 import { jwtDecode } from 'jwt-decode';
 import 'leaflet/dist/leaflet.css';
 import { ValidacionVehiculos } from './pages/admin/ValidacionVehiculos';
 import { Administracion } from './pages/admin/Administracion';
+import LiveChat from './pages/LiveChat';
+import JoinChat from './pages/JoinChat';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userProfilePic, setUserProfilePic] = useState(null);
   const [userRole, setUserRole] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [token, setToken] = useState(localStorage.getItem('token'));
 
   useEffect(() => {
     const checkAuth = () => {
-      const token = localStorage.getItem("token");
-      console.log('Token en localStorage:', token);
       if (token) {
         try {
+          const decoded = jwtDecode(token);
+          console.log('Token en localStorage:', token);
+          console.log('Rol decodificado:', decoded.role);
           setIsAuthenticated(true);
-          setUserProfilePic("src/assets/images/default_user.png");
-          if (jwtDecode) {
-            const decoded = jwtDecode(token);
-            setUserRole(decoded.role || null); // Maneja el caso en que role no exista
-            console.log('Rol decodificado:', decoded.role);
-          } else {
-            console.warn('jwt-decode no disponible, no se puede obtener el rol');
-          }
+          setUserProfilePic('src/assets/images/default_user.png');
+          setUserRole(decoded.role || null);
         } catch (error) {
           console.error('Error al decodificar el token:', error);
-          setIsAuthenticated(false); // Si el token es inválido, no autenticamos
-          localStorage.removeItem('token'); // Limpia el token inválido
+          setIsAuthenticated(false);
+          localStorage.removeItem('token');
+          setToken(null);
         }
       } else {
         setIsAuthenticated(false);
@@ -54,7 +56,23 @@ function App() {
     };
 
     checkAuth();
-  }, []);
+  }, [token]);
+
+  const user = useMemo(() => {
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        return {
+          id: decoded.id || '',
+          username: decoded.username || 'Usuario',
+        };
+      } catch (error) {
+        console.error('Error decoding token for user:', error);
+        return { id: '', username: '' };
+      }
+    }
+    return { id: '', username: '' };
+  }, [token]);
 
   const ProtectedRoute = ({ element, requireAdmin = false }) => {
     console.log('isAuthenticated:', isAuthenticated, 'userRole:', userRole);
@@ -85,29 +103,44 @@ function App() {
         <Route path="/app/contact" element={<ContactPage />} />
         <Route path="/app/about" element={<AboutUs />} />
         <Route path="/app/coches/:id" element={<CarDetailPage />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/app/ubicacion" element={<DealersPage />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/app/profile" element={<ProtectedRoute element={<ProfilePage />} />} />
-
         <Route
           path="/app/administracion"
           element={<ProtectedRoute element={<Administracion />} requireAdmin={true} />}
         />
-
-
         <Route
           path="/app/admin"
           element={<ProtectedRoute element={<ContactsPageAdmin />} requireAdmin={true} />}
         />
-
         <Route
           path="/app/validacion_coches"
           element={<ProtectedRoute element={<ValidacionVehiculos />} requireAdmin={true} />}
         />
-
+        <Route
+          path="/app/liveChat"
+          element={<ProtectedRoute element={<LiveChat token={token} user={user} />} />}
+        />
+        <Route
+          path="/join"
+          element={<ProtectedRoute element={<JoinChat token={token} user={user} />} />}
+        />
         <Route path="*" element={<NotFound />} />
-        
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Router>
   );
 }

@@ -1,3 +1,4 @@
+//controller/contactController.js
 const supabase = require('../config/database');
 const nodemailer = require('nodemailer');
 require('dotenv').config();

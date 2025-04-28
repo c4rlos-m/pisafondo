@@ -1,3 +1,4 @@
+// controller/adminController.js
 const supabase = require('../config/database');
 
 const vehiculosPorValidar = async (req, res) => {
