@@ -112,7 +112,7 @@ const loginUser = async (req, res) => {
 
   const { data, error } = await supabase
     .from('users')
-    .select('id, email, password, role') // Incluye 'role'
+    .select('id, name, email, password, role') // Incluye 'role'
     .eq('email', email)
     .single();
 
@@ -126,9 +126,9 @@ const loginUser = async (req, res) => {
   }
 
   const token = jwt.sign(
-    { id: data.id, role: data.role }, // Incluye 'role' en el token
+    { id: data.id, username: data.name ,role: data.role }, // Incluye 'role' en el token
     process.env.JWT_SECRET,
-    { expiresIn: '1h' }
+    { expiresIn: '24h' }
   );
 
   res.json({ token });

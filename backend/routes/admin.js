@@ -1,3 +1,4 @@
+// routes/admin.js
 const express = require('express');
 const { vehiculosPorValidar, vehiculoAceptado, vehiculoDenegado } = require('../controllers/adminController');
 
