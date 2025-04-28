@@ -8,7 +8,9 @@ import Features from '../components/landing/Features';
 import BentoGrid from '../components/landing/BentoGrid';
 import Testimonials from '../components/landing/Testimonials';
 import Footer from '../components/landing/Footer';
+
 import ChatPromoPopup from '../components/landing/ChatPromoPopup';
+
 
 const LandingPage = () => {
   return (
@@ -20,6 +22,7 @@ const LandingPage = () => {
       <FeaturedCarsScroll />
       {/* <CallToAction title="Tu Coche Ideal" subtitle="Explora nuestra colección ahora." /> */}
       <BentoGrid />
+      <PromoVideo />
       <Testimonials />
       <CallToAction/>
       <Footer />
