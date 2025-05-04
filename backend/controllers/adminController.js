@@ -52,5 +52,53 @@ const vehiculoDenegado = async (req, res) => {
   });
 };
 
+const reserva = async (req, res) => {
 
-module.exports = { vehiculosPorValidar, vehiculoAceptado, vehiculoDenegado };
+  const { telefono, tarjeta, id, precio } = req.body;
+  const { id: id_user, username } = req.user
+  console.log(req.user)
+
+  const { data: data_consulta, error: error_consulta } = await supabase
+    .from('coches')
+    .select('disponible')
+    .eq('id', id)
+    .single()
+
+  if (data_consulta.disponible == false) {
+    return res.status(400).json({ error: "El coche ya no está disponible" });
+  }
+
+  const { data, error } = await supabase
+    .from('transacciones')
+    .insert({
+      nombre: username,
+      id_usuario: id_user,
+      telefono: telefono,
+      numero_tarjeta: tarjeta,
+      id_vehiculo: id,
+      reserva_pagada: precio
+    })
+  if (error) {
+
+    return res.status(400).json({ error: "Error al crear la reserva" });
+  }
+  const { data: update_state, error: error_update } = await supabase
+    .from('coches')
+    .update({ disponible: false })
+    .eq('id', id)
+  if (error_update) {
+    console.log(error_update)
+  }
+
+
+// enviar mail
+
+  res.status(201).json({
+    succes: true,
+    mensaje: 'Gracias por tu compra! Pronto nos pondremos en contacto contigo.'
+
+  });
+};
+
+
+module.exports = { vehiculosPorValidar, vehiculoAceptado, vehiculoDenegado, reserva };
