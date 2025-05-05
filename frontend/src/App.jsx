@@ -23,6 +23,7 @@ import { ValidacionVehiculos } from './pages/admin/ValidacionVehiculos';
 import { Administracion } from './pages/admin/Administracion';
 import LiveChat from './pages/LiveChat';
 import JoinChat from './pages/JoinChat';
+import { BuyCar } from './pages/BuyCar';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -100,6 +101,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/app" element={<AppHome />} />
         <Route path="/app/sell" element={<ProtectedRoute element={<SellCar />} />} />
+        <Route path="/app/compra/:id" element={<ProtectedRoute element={<BuyCar />} />} />
         <Route path="/app/contact" element={<ContactPage />} />
         <Route path="/app/about" element={<AboutUs />} />
         <Route path="/app/coches/:id" element={<CarDetailPage />} />
@@ -127,6 +129,8 @@ function App() {
           path="/join"
           element={<ProtectedRoute element={<JoinChat token={token} user={user} />} />}
         />
+
+        
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer

@@ -43,7 +43,7 @@ const CarDetail = () => {
       autoClose: 3000,
     });
     // Aquí podrías redirigir a una página de compra
-    // navigate(`/comprar/${id}`);
+    navigate(`/app/compra/${id}`);
   };
 
   const formatPrice = (price) => {
