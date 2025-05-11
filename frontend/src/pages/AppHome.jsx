@@ -12,7 +12,7 @@ function AppHome() {
       className="min-h-screen bg-gradient-to-b from-gray-50 to-white"
     >
       <div className="max-w-[1350px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-12">
+        {/* <div className="text-center mb-12">
           <motion.h2
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -29,7 +29,7 @@ function AppHome() {
           >
             Encuentra el coche de tus sueños al mejor precio
           </motion.p>
-        </div>
+        </div> */}
         <CarList />
       </div>
     </motion.div>

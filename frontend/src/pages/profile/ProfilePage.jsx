@@ -1,48 +1,76 @@
-// Primero, el archivo de página principal: src/pages/ProfilePage.jsx
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import ProfileHeader from '../../components/app/profile/ProfileHeader';
 import ProfileDetails from '../../components/app/profile/ProfileDetails';
 import ProfileCars from '../../components/app/profile/ProfileCars';
-import ProfileSettings from '../../components/app/profile/ProfileSettings';
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
+  const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('details');
 
+  const token = localStorage.getItem('token');
+
   useEffect(() => {
-    // Aquí normalmente harías una llamada a la API para obtener los datos del usuario
     const fetchUserData = async () => {
-      // Simulando una llamada a la API con datos estáticos
-      setTimeout(() => {
-        setUser({
-          id: 1,
-          name: "Usuario Demo",
-          email: "usuario@ejemplo.com",
-          phone: "123456789",
-          address: "Calle Ejemplo 123, Madrid",
-          profilePic: "src/assets/images/default_user.png",
-          memberSince: "Enero 2023",
-          cars: [
-            { id: 1, brand: "Toyota", model: "Corolla", year: 2020, status: "En venta" },
-            { id: 2, brand: "Honda", model: "Civic", year: 2019, status: "Vendido" }
-          ]
-        });
+      if (!token) {
+        setError('No se encontró el token de autenticación');
         setLoading(false);
-      }, 1000);
+        return;
+      }
+
+      try {
+        const userResponse = await axios.get('http://localhost:5000/users/profile', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        const carsResponse = await axios.get('http://localhost:5000/cars/cochesUsuario/:id', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        console.log('Datos del usuario:', userResponse.data);
+        console.log('Coches del usuario:', carsResponse.data);
+        console.log('Valor de created_at:', userResponse.data.created_at);
+
+        const userData = userResponse.data;
+        const memberSince = userData.created_at
+          ? new Date(userData.created_at).toLocaleDateString('es-ES', {
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric',
+            })
+          : 'Fecha no disponible';
+
+        setUser({
+          id: userData.id,
+          name: userData.name,
+          email: userData.email,
+          profilePic: userData.profile_pic || '',
+          memberSince,
+        });
+        console.log('Datos del usuario:', user);
+
+        setCars(carsResponse.data);
+        setLoading(false);
+      } catch (err) {
+        console.error('Error al cargar datos:', err.response?.data, err.response?.status);
+        setError(err.response?.data?.error || 'Error al cargar los datos del perfil');
+        setLoading(false);
+      }
     };
 
     fetchUserData();
-  }, []);
+  }, [token]);
 
   const renderTabContent = () => {
     switch (activeTab) {
       case 'details':
         return <ProfileDetails user={user} />;
       case 'cars':
-        return <ProfileCars cars={user?.cars || []} />;
-      case 'settings':
-        return <ProfileSettings user={user} />;
+        return <ProfileCars cars={cars} />;
+      
       default:
         return <ProfileDetails user={user} />;
     }
@@ -56,49 +84,44 @@ const ProfilePage = () => {
     );
   }
 
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-xl font-semibold text-red-500">{error}</div>
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto py-8 px-4">
       <ProfileHeader user={user} />
-      
       <div className="bg-white rounded-lg shadow-md mt-6">
         <div className="border-b">
           <nav className="flex">
-            <button 
+            <button
               onClick={() => setActiveTab('details')}
               className={`px-4 py-3 text-sm font-medium ${
-                activeTab === 'details' 
-                  ? 'border-b-2 border-blue-500 text-blue-600' 
+                activeTab === 'details'
+                  ? 'border-b-2 border-blue-500 text-blue-600'
                   : 'text-gray-600 hover:text-gray-800'
               }`}
             >
               Detalles del Perfil
             </button>
-            <button 
+            <button
               onClick={() => setActiveTab('cars')}
               className={`px-4 py-3 text-sm font-medium ${
-                activeTab === 'cars' 
-                  ? 'border-b-2 border-blue-500 text-blue-600' 
+                activeTab === 'cars'
+                  ? 'border-b-2 border-blue-500 text-blue-600'
                   : 'text-gray-600 hover:text-gray-800'
               }`}
             >
               Mis Coches
             </button>
-            <button 
-              onClick={() => setActiveTab('settings')}
-              className={`px-4 py-3 text-sm font-medium ${
-                activeTab === 'settings' 
-                  ? 'border-b-2 border-blue-500 text-blue-600' 
-                  : 'text-gray-600 hover:text-gray-800'
-              }`}
-            >
-              Configuración
-            </button>
+            
           </nav>
         </div>
-        
-        <div className="p-6">
-          {renderTabContent()}
-        </div>
+        <div className="p-6">{renderTabContent()}</div>
       </div>
     </div>
   );

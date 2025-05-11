@@ -467,7 +467,7 @@ const Chat = ({ token, user }) => {
         </div>
         <div className="flex items-center gap-2">
           <div className="h-8 w-8 bg-indigo-700 rounded-full flex items-center justify-center text-white font-semibold">
-            {user?.username?.charAt(0)?.toUpperCase() || 'C'}
+            {user?.username?.charAt(0)?.toUpperCase() || ''}
           </div>
           <span className="font-medium text-sm">{user?.username || 'Usuario'}</span>
         </div>

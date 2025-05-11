@@ -150,9 +150,38 @@ const getCarById = async (req, res) => {
     res.status(500).json({ error: 'Error al obtener el coche' });
   }
 };
+
+const getUserCars = async (req, res) => {
+  try {
+    const userId = req.user.id; // Obtenido del middleware authenticateJWT
+    const { data, error } = await supabase
+      .from('coches')
+      .select('id, marca, modelo, year, precio, kilometros, combustible, descripcion, imagen, disponible, ubicacion, anuncio_validado, is_deleted')
+      .eq('user_id', userId)
+      .eq('is_deleted', false) // Excluir coches eliminados
+      .order('creado_en', { ascending: false });
+
+    if (error) throw error;
+
+    // Mapear los datos para que coincidan con el formato esperado por el frontend
+    const cars = data.map(car => ({
+      id: car.id,
+      brand: car.marca,
+      model: car.modelo,
+      year: car.year,
+      status: car.disponible && car.anuncio_validado ? 'En venta' : 'Pendiente/Reservado',
+    }));
+
+    res.status(200).json(cars);
+  } catch (error) {
+    console.error('Error fetching user cars:', error.message);
+    res.status(500).json({ error: 'Error al obtener los coches del usuario' });
+  }
+};
 module.exports = {
   getFeaturedCars,
   getAllCars,
+  getUserCars,
   getCarById,
   createCar: [upload.array("images", 5), createCar],
 };

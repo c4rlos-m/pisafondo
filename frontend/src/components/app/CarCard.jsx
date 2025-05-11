@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const ImageSlider = memo(({ images, marca, modelo }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   const handlePrevImage = useCallback((e) => {
     e?.stopPropagation?.();
     setCurrentIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
@@ -15,13 +15,12 @@ const ImageSlider = memo(({ images, marca, modelo }) => {
     e?.stopPropagation?.();
     setCurrentIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0));
   }, [images?.length]);
-  
-  // Preload images
+
   useEffect(() => {
     if (images && images.length > 0) {
       let loadedCount = 0;
       const totalImages = images.length;
-      
+
       images.forEach((src) => {
         const img = new Image();
         img.src = src;
@@ -38,7 +37,7 @@ const ImageSlider = memo(({ images, marca, modelo }) => {
           }
         };
       });
-      
+
       return () => setIsLoading(true);
     } else {
       setIsLoading(false);
@@ -72,22 +71,20 @@ const ImageSlider = memo(({ images, marca, modelo }) => {
           <div className="w-6 h-6 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
         </div>
       )}
-      
+
       <img
         src={images[currentIndex]}
         alt={`${marca} ${modelo}`}
         className="w-full h-full object-cover transition-all duration-500 transform group-hover:scale-105"
         style={{ opacity: isLoading ? 0 : 1 }}
       />
-      
-      {/* Image counter - More elegant style */}
+
       {images.length > 1 && (
         <div className="absolute bottom-3 right-3 bg-black/50 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full">
           {currentIndex + 1}/{images.length}
         </div>
       )}
-      
-      {/* Navigation buttons - Only visible on hover */}
+
       {images.length > 1 && (
         <>
           <button
@@ -106,8 +103,7 @@ const ImageSlider = memo(({ images, marca, modelo }) => {
           </button>
         </>
       )}
-      
-      {/* Image dots indicator - Refined style */}
+
       {images.length > 1 && (
         <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-1.5">
           {images.map((_, index) => (
@@ -118,8 +114,8 @@ const ImageSlider = memo(({ images, marca, modelo }) => {
                 setCurrentIndex(index);
               }}
               className={`rounded-full transition-all duration-200 ${
-                currentIndex === index 
-                  ? "w-2.5 h-2.5 bg-white shadow-sm" 
+                currentIndex === index
+                  ? "w-2.5 h-2.5 bg-white shadow-sm"
                   : "w-2 h-2 bg-white/60 hover:bg-white/80"
               }`}
               aria-label={`Ir a imagen ${index + 1}`}
@@ -134,18 +130,18 @@ const ImageSlider = memo(({ images, marca, modelo }) => {
 const CarCard = memo(({ car, onClick }) => {
   const navigate = useNavigate();
 
-  const { 
+  const {
     id,
-    marca, 
-    modelo, 
-    precio, 
-    year, 
-    kilometros, 
-    combustible, 
-    descripcion, 
+    marca,
+    modelo,
+    precio,
+    year,
+    kilometros,
+    combustible,
+    descripcion,
     imagen,
-    disponible, 
-    ubicacion 
+    disponible,
+    ubicacion,
   } = car;
 
   const handleCardClick = useCallback(() => {
@@ -154,35 +150,34 @@ const CarCard = memo(({ car, onClick }) => {
   }, [car, onClick, navigate, id]);
 
   const formatPrice = useCallback((price) => {
-    return price.toLocaleString("es-ES", { 
-      style: "currency", 
+    return price.toLocaleString("es-ES", {
+      style: "currency",
       currency: "EUR",
-      maximumFractionDigits: 0
+      maximumFractionDigits: 0,
     });
   }, []);
 
   return (
-    <div 
-      className="w-full bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group"
+    <div
+      className="w-full h-[450px] bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group flex flex-col"
       onClick={handleCardClick}
     >
-      {/* Image container with gradient overlay */}
-      <div className="relative w-full h-60 bg-gray-100 overflow-hidden">
+      {/* Image container with fixed height */}
+      <div className="relative w-full h-60 bg-gray-100 overflow-hidden flex-shrink-0">
         <ImageSlider images={imagen} marca={marca} modelo={modelo} />
-        
-        {/* Badges on image - availability and location */}
+
+        {/* Badges on image */}
         <div className="absolute top-3 left-3 flex gap-2 flex-wrap">
           <span
             className={`text-xs font-medium px-2.5 py-1 rounded-full backdrop-blur-sm ${
-              disponible 
-                ? "bg-green-100 text-green-700 border border-green-200" 
+              disponible
+                ? "bg-green-100 text-green-700 border border-green-200"
                 : "bg-red-100 text-red-700 border border-red-200"
             }`}
           >
             {disponible ? "En venta" : "Reservado"}
           </span>
-          
-          {/* Ubicación badge - Mantenida como estaba antes pero mejorada */}
+
           {ubicacion && (
             <span className="text-xs font-medium px-2.5 py-1 rounded-full backdrop-blur-sm bg-purple-100 text-purple-700 border border-purple-100 flex items-center">
               <MapPin size={12} className="mr-1" />
@@ -192,50 +187,57 @@ const CarCard = memo(({ car, onClick }) => {
         </div>
       </div>
 
-      {/* Content section */}
-      <div className="p-5">
+      {/* Content section with flexible height but constrained */}
+      <div className="p-5 flex flex-col flex-grow">
         <div className="flex justify-between items-start mb-3">
-          {/* Title */}
-          <div>
-            <h3 className="text-lg font-bold text-gray-800">
+          <div className="min-h-[28px]">
+            <h3 className="text-lg font-bold text-gray-800 line-clamp-1">
               {marca} {modelo}
             </h3>
           </div>
-          
-          {/* Price */}
-          <div>
-            <p className="text-xl font-bold text-gray-900">
-              {formatPrice(precio)}
-            </p>
+          <div className="min-h-[28px] text-right">
+            <p className="text-xl font-bold text-gray-900">{formatPrice(precio)}</p>
           </div>
         </div>
 
-        {/* Description - if exists */}
-        {descripcion && (
-          <p className="text-gray-600 text-sm mb-4 line-clamp-2">{descripcion}</p>
-        )}
+        {/* Description with fixed height and overflow handling */}
+        <div className="min-h-[48px] mb-4">
+          {descripcion ? (
+            <p className="text-gray-600 text-sm line-clamp-2">{descripcion}</p>
+          ) : (
+            <p className="text-gray-600 text-sm italic">Sin descripción disponible</p>
+          )}
+        </div>
 
-        {/* Specs - Refined and responsive */}
-        <div className="flex flex-wrap gap-4 text-sm text-gray-600 mt-3 pt-3 border-t border-gray-100">
+        {/* Specs section with fixed height */}
+        <div className="flex flex-wrap gap-4 text-sm text-gray-600 mt-auto pt-3 border-t border-gray-100">
           <div className="flex items-center">
             <Calendar size={16} className="mr-1.5 text-blue-500" />
-            <span>{year}</span>
+            <span>{year || "N/D"}</span>
           </div>
           <div className="flex items-center">
             <Activity size={16} className="mr-1.5 text-blue-500" />
-            <span>{kilometros.toLocaleString("es-ES")} km</span>
+            <span>{kilometros ? kilometros.toLocaleString("es-ES") + " km" : "N/D"}</span>
           </div>
           <div className="flex items-center">
-            <svg width="16" height="16" viewBox="0 0 24 24" className="mr-1.5 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              className="mr-1.5 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path d="M19 7h-1V4a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v3H5a3 3 0 0 0-3 3v9a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-4h8v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-9a3 3 0 0 0-3-3Z" />
               <circle cx="8" cy="14" r="1" />
               <circle cx="16" cy="14" r="1" />
             </svg>
-            <span>{combustible}</span>
+            <span>{combustible || "N/D"}</span>
           </div>
         </div>
       </div>
-      
+
       {/* Animated subtle overlay on hover */}
       <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
     </div>
