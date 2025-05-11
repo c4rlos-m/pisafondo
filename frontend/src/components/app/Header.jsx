@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, MessageCircle } from "lucide-react";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Menu, X, MessageCircle } from 'lucide-react';
 
 const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole }) => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
     setIsAuthenticated(false);
-    navigate("/");
+    navigate('/');
     setIsMenuOpen(false);
   };
 
   const handleProfileClick = () => {
-    navigate("/app/profile");
+    navigate('/app/profile');
     setIsMenuOpen(false);
   };
 
@@ -39,16 +39,14 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
         {/* Menú en el centro (escritorio) */}
         <nav className="hidden md:flex flex-1 justify-center space-x-8">
           {[
-            { to: "/", label: "Inicio" },
-            { to: "/app", label: "Coches" },
-            { to: "/app/sell", label: "Vender" },
-            { to: "/app/ubicacion", label: "Concesionarios" },
-            { to: "/app/about", label: "Sobre nosotros" },
-            { to: "/app/contact", label: "Contacto" },
-            ...(isAuthenticated && userRole === "admin"
-              ? [
-                  { to: "/app/administracion", label: "Administración" },
-                ]
+            { to: '/', label: 'Inicio' },
+            { to: '/app', label: 'Coches' },
+            { to: '/app/sell', label: 'Vender' },
+            { to: '/app/ubicacion', label: 'Concesionarios' },
+            { to: '/app/about', label: 'Sobre nosotros' },
+            { to: '/app/contact', label: 'Contacto' },
+            ...(isAuthenticated && userRole === 'admin'
+              ? [{ to: '/app/administracion', label: 'Administración' }]
               : []),
           ].map((item) => (
             <Link
@@ -79,11 +77,19 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
                 className="focus:outline-none group"
                 aria-label="Ir al perfil"
               >
-                <img
-                  src={userProfilePic || "src/assets/images/default_user.png"}
-                  alt="Perfil"
-                  className="h-9 w-9 rounded-full object-cover border-2 border-white transition-all duration-300"
-                />
+                {userProfilePic ? (
+                  <img
+                    src={userProfilePic}
+                    alt="Perfil"
+                    className="h-9 w-9 rounded-full object-cover border-2 border-white transition-all duration-300"
+                  />
+                ) : (
+                  <div className="h-9 w-9 rounded-full bg-gray-200 flex items-center justify-center border-2 border-white">
+                    <span className="text-gray-600 text-sm font-medium">
+                      {userRole?.[0]?.toUpperCase() || 'U'}
+                    </span>
+                  </div>
+                )}
               </button>
               <button
                 onClick={handleLogout}
@@ -125,14 +131,14 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
         <div className="md:hidden bg-gray-900 py-4 px-6 absolute top-full left-0 w-full shadow-lg">
           <nav className="flex flex-col space-y-4">
             {[
-              { to: "/", label: "Inicio" },
-              { to: "/app", label: "Coches" },
-              { to: "/app/sell", label: "Vender" },
-              { to: "/app/ubicacion", label: "Concesionarios" },
-              { to: "/app/about", label: "Sobre nosotros" },
-              { to: "/app/contact", label: "Contacto" },
-              ...(isAuthenticated && userRole === "admin"
-                ? [{ to: "/app/administracion", label: "Administración" }]
+              { to: '/', label: 'Inicio' },
+              { to: '/app', label: 'Coches' },
+              { to: '/app/sell', label: 'Vender' },
+              { to: '/app/ubicacion', label: 'Concesionarios' },
+              { to: '/app/about', label: 'Sobre nosotros' },
+              { to: '/app/contact', label: 'Contacto' },
+              ...(isAuthenticated && userRole === 'admin'
+                ? [{ to: '/app/administracion', label: 'Administración' }]
                 : []),
             ].map((item) => (
               <Link
@@ -162,11 +168,19 @@ const Header = ({ isAuthenticated, setIsAuthenticated, userProfilePic, userRole 
                   onClick={handleProfileClick}
                   className="text-gray-300 hover:text-white font-medium text-sm uppercase tracking-wide transition-colors duration-300 text-left flex items-center"
                 >
-                  <img
-                    src={userProfilePic || "/assets/images/default_user.png"}
-                    alt="Perfil"
-                    className="h-8 w-8 rounded-full object-cover border-2 border-white mr-2"
-                  />
+                  {userProfilePic ? (
+                    <img
+                      src={userProfilePic}
+                      alt="Perfil"
+                      className="h-8 w-8 rounded-full object-cover border-2 border-white mr-2"
+                    />
+                  ) : (
+                    <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center border-2 border-white mr-2">
+                      <span className="text-gray-600 text-sm font-medium">
+                        {userRole?.[0]?.toUpperCase() || 'U'}
+                      </span>
+                    </div>
+                  )}
                   Perfil
                 </button>
                 <button

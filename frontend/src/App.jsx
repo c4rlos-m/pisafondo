@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify'; // Importar ToastContainer
-import 'react-toastify/dist/ReactToastify.css'; // Importar estilos de react-toastify
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios'; // Importar axios
 import Header from './components/app/Header';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
@@ -10,7 +11,7 @@ import AppHome from './pages/AppHome';
 import NotFound from './pages/NotFound';
 import SellCar from './pages/SellCar';
 import ContactPage from './pages/Contact';
-import ContactsPageAdmin from './pages/admin/contacts';
+import ContactsPageAdmin from './pages/admin/Contacts';
 import AboutUs from './pages/AboutUs';
 import CarDetailPage from './pages/CarDetailPage';
 import ForgotPassword from './pages/ForgotPassword';
@@ -33,18 +34,25 @@ function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
 
   useEffect(() => {
-    const checkAuth = () => {
+    const checkAuth = async () => {
       if (token) {
         try {
           const decoded = jwtDecode(token);
           console.log('Token en localStorage:', token);
           console.log('Rol decodificado:', decoded.role);
           setIsAuthenticated(true);
-          setUserProfilePic('src/assets/images/default_user.png');
           setUserRole(decoded.role || null);
+
+          // Obtener la foto de perfil desde el backend
+          const response = await axios.get('http://localhost:5000/users/profile', {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setUserProfilePic(response.data.profile_pic || null);
         } catch (error) {
-          console.error('Error al decodificar el token:', error);
+          console.error('Error al verificar autenticación o perfil:', error);
           setIsAuthenticated(false);
+          setUserProfilePic(null);
+          setUserRole(null);
           localStorage.removeItem('token');
           setToken(null);
         }
@@ -129,8 +137,6 @@ function App() {
           path="/join"
           element={<ProtectedRoute element={<JoinChat token={token} user={user} />} />}
         />
-
-        
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer

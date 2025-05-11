@@ -164,9 +164,9 @@ const CarDetail = () => {
                 { label: 'Kilómetros', value: `${car.kilometros.toLocaleString('es-ES')} km` },
                 { label: 'Combustible', value: car.combustible },
                 { label: 'Ubicación', value: car.ubicacion },
-                { label: 'Color', value: car.color },
-                { label: 'Transmisión', value: car.transmision },
-                { label: 'Puertas', value: car.puertas },
+                // { label: 'Color', value: car.color },
+                // { label: 'Transmisión', value: car.transmision },
+                // { label: 'Puertas', value: car.puertas },
               ].map((item, index) => (
                 <div key={index} className="bg-gray-50 p-3 rounded-lg">
                   <p className="text-sm text-gray-500">{item.label}</p>
