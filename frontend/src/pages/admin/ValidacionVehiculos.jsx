@@ -13,7 +13,7 @@ export const ValidacionVehiculos = () => {
         setLoading(true);
         const token = localStorage.getItem('token');
 
-        axios.get(`${APP_URL}/admin/vehiculos_por_validar/`, {
+        axios.get(`https://pisafondo-production.up.railway.app/admin/vehiculos_por_validar/`, {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then((resultFetch) => {
