@@ -22,7 +22,7 @@ const CarList = () => {
   const fetchCars = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/cars/all');
+      const response = await fetch('http://pisafondo-production.up.railway.app/cars/all');
       if (!response.ok) throw new Error('Error al obtener los coches');
       const data = await response.json();
       setCars(data);

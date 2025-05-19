@@ -25,7 +25,7 @@ export const BuyCarForm = () => {
     const fetchCar = async () => {
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost:5000/cars/${id}`);
+            const response = await fetch(`http://lpisafondo-production.up.railway.app/cars/${id}`);
             if (!response.ok) throw new Error('No se encontró el coche');
             const data = await response.json();
             setCar(data);
@@ -63,7 +63,7 @@ export const BuyCarForm = () => {
         const tarjeta = inputTarjeta.current.value
         const telefono = inputTelefono.current.value
         const token = localStorage.getItem("token");
-        const res = fetch("http://localhost:5000/admin/reserva", {
+        const res = fetch("http://pisafondo-production.up.railway.app/admin/reserva", {
             method: "POST",
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
             body: JSON.stringify({ telefono, tarjeta, id, precio }),

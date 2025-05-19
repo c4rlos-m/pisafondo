@@ -27,7 +27,7 @@ const RegisterForm = () => {
     setIsLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/users/register", {
+      const res = await fetch("http://pisafondo-production.up.railway.app/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),

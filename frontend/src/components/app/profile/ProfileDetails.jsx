@@ -60,7 +60,7 @@ const ProfileDetails = ({ user }) => {
       }
 
       const response = await axios.put(
-        'http://localhost:5000/users/profile',
+        'http://pisafondo-production.up.railway.app/users/profile',
         formDataToSend,
         {
           headers: {

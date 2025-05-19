@@ -16,7 +16,7 @@ const ContactManagement = () => {
       try {
         setIsLoading(true);
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/contact', {
+        const response = await axios.get('http://pisafondo-production.up.railway.app/contact', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setContacts(response.data);
@@ -47,7 +47,7 @@ const ContactManagement = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        'http://localhost:5000/contact/reply',
+        'http://pisafondo-production.up.railway.app/contact/reply',
         { contactId: parseInt(contactId, 10), replyMessage },
         { headers: { Authorization: `Bearer ${token}` } }
       );

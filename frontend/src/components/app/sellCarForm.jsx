@@ -67,7 +67,7 @@ const SellCarForm = () => {
       images.forEach((image) => data.append("images", image));
 
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/cars/createCar", {
+      const response = await fetch("http://pisafondo-production.up.railway.app/cars/createCar", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
