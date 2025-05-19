@@ -15,7 +15,7 @@ const LoginForm = ({ setIsAuthenticated }) => {
     setIsLoading(true);
 
     try {
-      const res = await fetch("http://pisafondo-production.up.railway.app/users/login", {
+      const res = await fetch("https://pisafondo-production.up.railway.app/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

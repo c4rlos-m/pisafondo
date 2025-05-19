@@ -39,7 +39,7 @@ const ContactForm = ({ carId }) => {
     setError('');
 
     try {
-      const response = await fetch('http://pisafondo-production.up.railway.app/contact/contact', {
+      const response = await fetch('https://pisafondo-production.up.railway.app/contact/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

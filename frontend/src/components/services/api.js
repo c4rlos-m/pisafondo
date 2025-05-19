@@ -1,5 +1,5 @@
 // src/services/api.js
-const API_BASE_URL = 'http://pisafondo-production.up.railway.app'; // Cambia esto según tu URL de backend
+const API_BASE_URL = 'https://pisafondo-production.up.railway.app'; // Cambia esto según tu URL de backend
 
 export const searchDealersByLocation = async (query) => {
   try {

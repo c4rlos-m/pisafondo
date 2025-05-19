@@ -60,7 +60,7 @@ const ProfileDetails = ({ user }) => {
       }
 
       const response = await axios.put(
-        'http://pisafondo-production.up.railway.app/users/profile',
+        'https://pisafondo-production.up.railway.app/users/profile',
         formDataToSend,
         {
           headers: {

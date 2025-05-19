@@ -44,7 +44,7 @@ function App() {
           setUserRole(decoded.role || null);
 
           // Obtener la foto de perfil desde el backend
-          const response = await axios.get('http://pisafondo-production.up.railway.app/users/profile', {
+          const response = await axios.get('https://pisafondo-production.up.railway.app/users/profile', {
             headers: { Authorization: `Bearer ${token}` },
           });
           setUserProfilePic(response.data.profile_pic || null);
