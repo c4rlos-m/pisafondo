@@ -32,7 +32,7 @@ const testimonials = [
   {
     name: 'Alex Ribas',
     city: 'Barcelona, España',
-    comment: 'Encontrar un coche fiable aqui es mas facil que encontrar novia sumisa en la vida.',
+    comment: 'Encontrar un coche fiable aqui es mas facil que encontrar novia en la vida.',
     description: 'Usó nuestra app para buscar coches eléctricos familiares.',
     image: '/aribas.png',
   },
@@ -44,10 +44,10 @@ const testimonials = [
     image: '/POL.png',
   },
   {
-    name: 'Alex G',
+    name: 'Alex G 🏳️‍⚧️',
     city: 'Viladecans, España',
-    comment: 'Me sentí acompañado en todo el proceso de compra online.',
-    description: 'Valoró especialmente la asistencia personalizada del equipo.',
+    comment: 'Me sentí acompañade en tode el proceso de compre online.',
+    description: 'Valore especialmente la asistencia personalizade del equipe.',
     image: '/gilarte.jpg',
   },
 ];
