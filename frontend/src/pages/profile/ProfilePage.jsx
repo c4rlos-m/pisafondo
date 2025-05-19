@@ -22,11 +22,11 @@ const ProfilePage = () => {
       }
 
       try {
-        const userResponse = await axios.get('http://localhost:5000/users/profile', {
+        const userResponse = await axios.get('http://pisafondo-production.up.railway.app/users/profile', {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        const carsResponse = await axios.get('http://localhost:5000/cars/cochesUsuario/:id', {
+        const carsResponse = await axios.get('http://pisafondo-production.up.railway.app/cars/cochesUsuario/:id', {
           headers: { Authorization: `Bearer ${token}` },
         });
 

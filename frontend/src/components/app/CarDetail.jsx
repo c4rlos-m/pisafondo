@@ -18,7 +18,7 @@ const CarDetail = () => {
     const fetchCar = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:5000/cars/${id}`);
+        const response = await fetch(`http://pisafondo-production.up.railway.app/cars/${id}`);
         if (!response.ok) throw new Error('No se encontró el coche');
         const data = await response.json();
         setCar(data);

@@ -12,7 +12,7 @@ const FeaturedCarsScroll = () => {
   useEffect(() => {
     const fetchFeaturedCars = async () => {
       try {
-        const response = await fetch("http://localhost:5000/cars/destacados");
+        const response = await fetch("http://pisafondo-production.up.railway.app/cars/destacados");
         if (!response.ok) throw new Error("Error al cargar los coches");
         const data = await response.json();
         setCoches([...data, ...data]); // Duplicamos para el efecto continuo
