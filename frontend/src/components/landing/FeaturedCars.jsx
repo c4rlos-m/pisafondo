@@ -45,7 +45,7 @@ const FeaturedCars = () => {
   useEffect(() => {
     const fetchFeaturedCars = async () => {
       try {
-        const response = await fetch("http://pisafondo-production.up.railway.app/cars/destacados");
+        const response = await fetch("https://pisafondo-production.up.railway.app/cars/destacados");
         if (!response.ok) throw new Error("Error al cargar los coches destacados");
         const data = await response.json();
         setFeaturedCars(data);

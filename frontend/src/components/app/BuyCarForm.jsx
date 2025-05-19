@@ -14,6 +14,7 @@ export const BuyCarForm = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [car, setCar] = useState(null);
+    // eslint-disable-next-line no-unused-vars
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -63,7 +64,8 @@ export const BuyCarForm = () => {
         const tarjeta = inputTarjeta.current.value
         const telefono = inputTelefono.current.value
         const token = localStorage.getItem("token");
-        const res = fetch("http://pisafondo-production.up.railway.app/admin/reserva", {
+        // eslint-disable-next-line no-unused-vars
+        const res = fetch("https://pisafondo-production.up.railway.app/admin/reserva", {
             method: "POST",
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
             body: JSON.stringify({ telefono, tarjeta, id, precio }),
