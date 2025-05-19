@@ -10,7 +10,7 @@ export default function CarDealershipBento() {
       title: "Vehículos Destacados",
       description: "Descubre nuestra selección de autos premium con las mejores ofertas del mercado",
       icon: <Car className="text-blue-600" />,
-      image: "src/assets/images/bmw.avif",
+      image: "/images/bmw.avif",
       size: "col-span-2 row-span-2",
       color: "bg-slate-50"
     },
@@ -35,7 +35,7 @@ export default function CarDealershipBento() {
       title: "Vehículos Certificados",
       description: "Autos usados con garantía y respaldo total",
       icon: <Award className="text-blue-600" />,
-      image: "src/assets/images/toyota.webp",
+      image: "/images/toyota.webp",
       size: "col-span-1 row-span-2",
       color: "bg-slate-50"
     },

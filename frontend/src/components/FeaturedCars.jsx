@@ -1,8 +1,8 @@
 import React from 'react';
 import CarCard from './CarCard';
-import toyotaImg from '../assets/images/toyota.webp'; // Ajusta la ruta
-import bmwImg from '../assets/images/bmw.avif';
-import mustangImg from '../assets/images/mustang.png';
+import toyotaImg from '/images/toyota.webp'; // Ajusta la ruta
+import bmwImg from '/images/bmw.avif';
+import mustangImg from '/images/mustang.png';
 
 const FeaturedCars = () => {
   const cars = [

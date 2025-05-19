@@ -8,7 +8,7 @@ const ProfileHeader = ({ user }) => {
   return (
     <div className="flex items-center space-x-4">
       <img
-        src={user.profilePic || '/src/assets/images/default_user.png'}
+        src={user.profilePic || '/images/default_user.png'}
         alt="Foto de perfil Usuario"
         className="w-24 h-24 rounded-full object-cover"
       />
