@@ -35,7 +35,7 @@ export default function CarDealershipBento() {
       title: "Vehículos Certificados",
       description: "Autos usados con garantía y respaldo total",
       icon: <Award className="text-blue-600" />,
-      image: "src/assets/images/mustang.png",
+      image: "src/assets/images/toyota.webp",
       size: "col-span-1 row-span-2",
       color: "bg-slate-50"
     },
