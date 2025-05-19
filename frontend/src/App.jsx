@@ -11,7 +11,7 @@ import AppHome from './pages/AppHome';
 import NotFound from './pages/NotFound';
 import SellCar from './pages/SellCar';
 import ContactPage from './pages/Contact';
-import ContactsPageAdmin from './pages/admin/Contacts';
+import ContactsPageAdmin from './pages/admin/contacts';
 import AboutUs from './pages/AboutUs';
 import CarDetailPage from './pages/CarDetailPage';
 import ForgotPassword from './pages/ForgotPassword';
