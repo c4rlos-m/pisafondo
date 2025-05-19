@@ -12,7 +12,7 @@ import NotFound from './pages/NotFound';
 import SellCar from './pages/SellCar';
 import ContactPage from './pages/Contact';
 import ContactsPageAdmin from './pages/admin/contacts';
-import AboutUs from './pages/aboutUs';
+import AboutUs from './pages/aboutUs'; //daba error
 import CarDetailPage from './pages/CarDetailPage';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
