@@ -1,5 +1,5 @@
 import React from 'react';
-import heroImg from '../assets/images/hero-car.webp'; // Ajusta la ruta
+import heroImg from '/images/hero-car.webp'; // Ajusta la ruta
 
 const Hero = () => {
   return (
