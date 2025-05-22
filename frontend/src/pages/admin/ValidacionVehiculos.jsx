@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button } from "../../components/Button";
-import { APP_URL } from "../../config";
 
 export const ValidacionVehiculos = () => {
     const [coches, setCoches] = useState([]);
@@ -36,7 +35,7 @@ export const ValidacionVehiculos = () => {
         if (!confirmado) return;
 
         const token = localStorage.getItem('token');
-        axios.post(`${APP_URL}/admin/vehiculo_aceptado/`, {
+        axios.post(`https://pisafondo-production.up.railway.app/admin/vehiculo_aceptado/`, {
             id: coche.id
         }, {
             headers: { Authorization: `Bearer ${token}` },
@@ -54,7 +53,7 @@ export const ValidacionVehiculos = () => {
         if (!confirmado) return;
 
         const token = localStorage.getItem('token');
-        axios.post(`${APP_URL}/admin/vehiculo_denegado/`, {
+        axios.post(`https://pisafondo-production.up.railway.app/admin/vehiculo_denegado/`, {
             id: coche.id
         }, {
             headers: { Authorization: `Bearer ${token}` },

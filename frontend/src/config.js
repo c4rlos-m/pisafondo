@@ -1,1 +1,1 @@
-export const APP_URL = import.meta.env.VITE_API_URL;
+export const APP_URL = 'https://pisafondo-production.up.railway.app';
