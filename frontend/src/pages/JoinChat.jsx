@@ -19,7 +19,7 @@ const JoinChat = ({ token, user }) => {
 
     const joinChat = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/chats/join`, {
+        const response = await fetch(`https://pisafondo-production.up.railway.app/chats/join`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
