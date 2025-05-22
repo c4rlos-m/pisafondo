@@ -11,7 +11,7 @@ const ForgotPasswordForm = () => {
 
     try {
       // Aquí cambia la URL por donde tengas corriendo tu backend
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/forgot-password`, { email });
+      const response = await axios.post(`https://pisafondo-production.up.railway.app/auth/forgot-password`, { email });
       setMessage(response.data.message);
       setError('');
     } catch (err) {

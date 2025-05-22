@@ -88,7 +88,7 @@ const Chat = ({ token, user }) => {
   const fetchChats = async () => {
     try {
       setIsLoadingChats(true);
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/chats`, {
+      const response = await fetch(`https://pisafondo-production.up.railway.app/chats`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!response.ok) {
@@ -114,7 +114,7 @@ const Chat = ({ token, user }) => {
     if (!chatId) return;
     try {
       setIsLoading(true);
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/chats/${chatId}/messages`, {
+      const response = await fetch(`https://pisafondo-production.up.railway.app/chats/${chatId}/messages`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!response.ok) {
@@ -239,7 +239,7 @@ const Chat = ({ token, user }) => {
 
       setMessages((prev) => [...prev, optimisticMessage]);
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/chats/${selectedChat}/messages`, {
+      const response = await fetch(`https://pisafondo-production.up.railway.app/chats/${selectedChat}/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -282,7 +282,7 @@ const Chat = ({ token, user }) => {
     }
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/chats`, {
+      const response = await fetch(`https://pisafondo-production.up.railway.app/chats`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -325,7 +325,7 @@ const Chat = ({ token, user }) => {
     }
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/chats/join`, {
+      const response = await fetch(`https://pisafondo-production.up.railway.app/chats/join`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
