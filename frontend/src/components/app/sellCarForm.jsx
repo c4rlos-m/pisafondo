@@ -82,7 +82,7 @@ const SellCarForm = () => {
 
       console.log("Coche subido:", responseData);
       setMessage({
-        text: "¡Felicidades! Tu vehículo ha sido publicado correctamente. Redirigiendo...",
+        text: "Tu vehículo esta pendiente de revisión y será publicado en breve. Redirigiendo...",
         type: "success",
       });
       setFormData({

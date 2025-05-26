@@ -40,7 +40,6 @@ export default Footer;
 
 */
 
-// components/landing/Footer.js
 import React from 'react';
 import '../../styles/Footer.css';
 
