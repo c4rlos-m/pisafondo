@@ -12,7 +12,8 @@ const PromoVideo = () => {
       <div className="promo-video-wrapper">
         <iframe
           className="promo-video"
-          src="https://www.youtube.com/embed/5B3JGUXSRJo?si=z2mG4kspTnv7p30v"
+          src="/videos/pisafondo_video_promocional.mp4"
+          type="video/mp4"
           title="Video Promocional"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
