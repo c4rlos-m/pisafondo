@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Mail, Lock, User, ArrowRight, AlertCircle, CheckCircle, Shield } from "lucide-react";
 
 const RegisterForm = () => {
@@ -10,6 +10,7 @@ const RegisterForm = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0);
+  const navigate = useNavigate();
 
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
@@ -37,11 +38,15 @@ const RegisterForm = () => {
 
       if (res.ok) {
         setSuccessMessage("Registro exitoso. ¡Bienvenido!");
+
         setErrorMessage("");
         setName("");
         setEmail("");
         setPassword("");
         setPasswordStrength(0);
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
       } else {
         setErrorMessage(data.error || "Error al registrarse.");
         setSuccessMessage("");
@@ -208,6 +213,7 @@ const RegisterForm = () => {
             >
               <span>{isLoading ? "Procesando..." : "Crear Cuenta"}</span>
               {!isLoading && <ArrowRight className="h-4 w-4" />}
+              
             </button>
 
             <div className="text-center text-xs mt-2">
