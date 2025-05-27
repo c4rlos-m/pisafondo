@@ -8,6 +8,7 @@ export const VehiculosReservados = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
 
   const fetchReservas = async () => {
@@ -15,8 +16,8 @@ export const VehiculosReservados = () => {
       setLoading(true);
       const token = localStorage.getItem("token");
       const res = await axios.get(
-        /*"https://pisafondo-production.up.railway.app/admin/vehiculos_reservados"*/
-        "http://localhost:5000/admin/vehiculos_reservados",
+        // /*"https://pisafondo-production.up.railway.app/admin/vehiculos_reservados"*/
+        "https://pisafondo-production.up.railway.app/admin/vehiculos_reservados",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -25,7 +26,7 @@ export const VehiculosReservados = () => {
       );
       setReservas(res.data.data);
     } catch (err) {
-      setError("Error al cargar las reservas");
+      setError("Error al cargar las reservas", err);
     } finally {
       setLoading(false);
     }
