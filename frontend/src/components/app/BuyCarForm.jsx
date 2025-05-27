@@ -187,6 +187,7 @@ export const BuyCarForm = () => {
                             </div>
                             <div className="text-right">
                                 <p className="text-3xl font-bold text-gray-900">{formatPrice(car.precio)}</p>
+                                <p>Precio de paga y señal</p>
                                 <p className="text-3xl font-bold text-gray-900">{formatPrice(car.precio * 0.15)}</p>
                                 <span
                                     className={`inline-block px-3 py-1 rounded-full text-sm font-medium mt-1 ${car.disponible ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'

@@ -52,6 +52,23 @@ const vehiculoDenegado = async (req, res) => {
   });
 };
 
+
+const vehiculosReservados = async (req, res) => {
+  const { data, error } = await supabase
+    .from('transacciones')
+    .select('*, coches(*), usuarios:users(*)') // puedes renombrar si quieres
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    return res.status(400).json({ error: "Error al obtener reservas" });
+  }
+
+  return res.status(200).json({
+    succes: true,
+    data,
+  });
+};
+
 const reserva = async (req, res) => {
 
   const { telefono, tarjeta, id, precio } = req.body;
@@ -101,4 +118,4 @@ const reserva = async (req, res) => {
 };
 
 
-module.exports = { vehiculosPorValidar, vehiculoAceptado, vehiculoDenegado, reserva };
+module.exports = { vehiculosPorValidar, vehiculoAceptado, vehiculoDenegado, reserva,vehiculosReservados };

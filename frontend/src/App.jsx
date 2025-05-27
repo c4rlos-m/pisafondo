@@ -21,6 +21,7 @@ import ProfilePage from './pages/profile/ProfilePage';
 import { jwtDecode } from 'jwt-decode';
 import 'leaflet/dist/leaflet.css';
 import { ValidacionVehiculos } from './pages/admin/ValidacionVehiculos';
+import { VehiculosReservados } from './pages/admin/VehiculosReservados.jsx';
 import { Administracion } from './pages/admin/Administracion';
 import LiveChat from './pages/LiveChat';
 import JoinChat from './pages/JoinChat';
@@ -128,6 +129,10 @@ function App() {
         <Route
           path="/app/validacion_coches"
           element={<ProtectedRoute element={<ValidacionVehiculos />} requireAdmin={true} />}
+        />
+         <Route
+          path="/app/vehiculos_reservados"
+          element={<ProtectedRoute element={<VehiculosReservados />} requireAdmin={true} />}
         />
         <Route
           path="/app/liveChat"
